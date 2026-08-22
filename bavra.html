@@ -94,17 +94,51 @@
 
     section {
       background: var(--card-bg);
-      padding: 20px;
       margin-bottom: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px var(--shadow);
+      overflow: hidden;
     }
 
-    h2 {
+    /* Clickable Section Titles */
+    .section-title {
       color: var(--primary-color);
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 5px;
-      transition: color 0.3s ease;
+      margin: 0;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: color 0.3s ease, background-color 0.2s ease;
+    }
+
+    .section-title:hover {
+      background-color: var(--fact-bg);
+    }
+
+    .section-title::after {
+      content: "▼";
+      font-size: 0.8em;
+      transition: transform 0.3s ease;
+    }
+
+    section.active .section-title::after {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      border-top: 1px solid transparent;
+    }
+
+    section.active .section-content {
+      max-height: 1000px;
+      padding: 15px 20px 20px 20px;
+      border-top: 1px solid var(--card-border);
     }
 
     ul { padding-left: 20px; }
@@ -113,7 +147,7 @@
     .facts-grid, .weather-grid {
       display: flex;
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .fact-card, .weather-card {
@@ -137,7 +171,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .img-card {
@@ -171,7 +205,7 @@
       height: 300px;
       border-radius: 8px;
       overflow: hidden;
-      margin-top: 15px;
+      margin-top: 10px;
       border: 1px solid var(--card-border);
     }
 
@@ -212,7 +246,6 @@
 
   <header>
     <div class="header-controls">
-      <!-- Live Time Display (Top Right) -->
       <div class="clock-display" id="clock">00:00:00</div>
       <button class="theme-toggle" id="themeToggle">🌙 Մուգ Ռեժիմ</button>
     </div>
@@ -221,92 +254,102 @@
   </header>
 
   <main>
-    <section>
-      <h2>Հիմնական Տվյալներ</h2>
-      <div class="facts-grid">
-        <div class="fact-card">
-          <h3>652</h3>
-          <p>Բնակչություն (2023թ.)</p>
-        </div>
-        <div class="fact-card">
-          <h3>2,110 մ</h3>
-          <p>Բարձրություն</p>
-        </div>
-        <div class="fact-card">
-          <h3>1.7 կմ²</h3>
-          <p>Մակերես</p>
-        </div>
-        <div class="fact-card">
-          <h3>+374 312</h3>
-          <p>Հեռախոսային կոդ</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Climate Highlights -->
-    <section>
-      <h2>Կլիմայական Պայմաններ</h2>
-      <p>Աշոցքի բարձրավանդակը հայտնի է իր յուրահատուկ բարձրլեռնային կլիմայով․</p>
-      <div class="weather-grid">
-        <div class="weather-card">
-          <h3>❄️ Ձմեռ</h3>
-          <p>Երկարատև և ձնառատ (-15°C-ից մինչև -30°C)</p>
-        </div>
-        <div class="weather-card">
-          <h3>☀️ Ամառ</h3>
-          <p>Զով և կարճատև (+18°C-ից +25°C)</p>
-        </div>
-        <div class="weather-card">
-          <h3>💨 Քամիներ</h3>
-          <p>Ուժեղ լեռնային քամիներ տարվա մեծ մասը</p>
+    <section class="active">
+      <h2 class="section-title">Հիմնական Տվյալներ</h2>
+      <div class="section-content">
+        <div class="facts-grid">
+          <div class="fact-card">
+            <h3>652</h3>
+            <p>Բնակչություն (2023թ.)</p>
+          </div>
+          <div class="fact-card">
+            <h3>2,150 մ</h3>
+            <p>Բարձրություն</p>
+          </div>
+          <div class="fact-card">
+            <h3>1.7 կմ²</h3>
+            <p>Մակերես</p>
+          </div>
+          <div class="fact-card">
+            <h3>+374 312</h3>
+            <p>Հեռախոսային կոդ</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>Աշխարհագրություն և Դիրք</h2>
-      <ul>
-        <li><strong>Տեղադրություն․</strong> Գտնվում է Հայաստանի Շիրակի մարզում (Աշոցքի տարածաշրջան)՝ աշխարհագրական 41°07′09″ հս. լ. 43°48′33″ ավ. եր. կոորդինատներում։</li>
-        <li><strong>Հեռավորություններ․</strong> Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ, Երևանից՝ 175 կմ։</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Քարտեզ (Google Maps)</h2>
-      <div class="map-container">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
-          allowfullscreen="" 
-          loading="lazy">
-        </iframe>
+      <h2 class="section-title">Կլիմայական Պայմաններ</h2>
+      <div class="section-content">
+        <p>Աշոցքի բարձրավանդակը հայտնի է իր յուրահատուկ բարձրլեռնային կլիմայով․</p>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <h3>❄️ Ձմեռ</h3>
+            <p>Երկարատև և ձնառատ (-15°C-ից մինչև -30°C)</p>
+          </div>
+          <div class="weather-card">
+            <h3>☀️ Ամառ</h3>
+            <p>Զով և կարճատև (+18°C-ից +25°C)</p>
+          </div>
+          <div class="weather-card">
+            <h3>💨 Քամիներ</h3>
+            <p>Ուժեղ լեռնային քամիներ տարվա մեծ մասը</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <section>
-      <h2>Տնտեսություն, Գյուղատնտեսություն և Սահման</h2>
-      <ul>
-        <li><strong>Միջազգային մաքսակետ․</strong> Գյուղի մոտ է գտնվում «Բավրա» պետական սահմանային անցակետը:</li>
-        <li><strong>Գյուղատնտեսություն․</strong> Անասնապահություն, կաթնամթերք, մեղվաբուծություն և ցուրտ կլիմային դիմացկուն հացահատիկներ (ցորեն, հնդկաձավար):</li>
-        <li><strong>Տեղական ձեռնարկություններ․</strong> «Նոր Հատիկ» և այլ տեղական նախագծեր։</li>
-      </ul>
+      <h2 class="section-title">Աշխարհագրություն և Դիրք</h2>
+      <div class="section-content">
+        <ul>
+          <li><strong>Տեղադրություն․</strong> Գտնվում է Հայաստանի Շիրակի մարզում (Աշոցքի տարածաշրջան)՝ աշխարհագրական 41°07′09″ հս. լ. 43°48′33″ ավ. եր. կոորդինատներում։</li>
+          <li><strong>Հեռավորություններ․</strong> Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ, Երևանից՝ 175 կմ։</li>
+        </ul>
+      </div>
     </section>
 
     <section>
-      <h2>Լուսանկարներ (Սեղմեք մեծացնելու համար)</h2>
-      <div class="gallery">
-        <div class="img-card" onclick="openModal(this.querySelector('img').src)">
-          <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA" alt="Սուրբ Նշան եկեղեցի">
-          <p>Սուրբ Նշան եկեղեցի</p>
+      <h2 class="section-title">Քարտեզ (Google Maps)</h2>
+      <div class="section-content">
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
         </div>
-        <div class="img-card" onclick="openModal(this.querySelector('img').src)">
-          <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRAlXhdyjoIJ9IzAtQc2H5UpTw66Fl-st7KS-m8S2MX_we5Ys6doxAVYV6np1lIPGQ1p60f8N955OWPH5k" alt="Բավրայի սահմանային անցակետ">
-          <p>Բավրայի սահմանային անցակետ</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Տնտեսություն, Գյուղատնտեսություն և Սահման</h2>
+      <div class="section-content">
+        <ul>
+          <li><strong>Միջազգային մաքսակետ․</strong> Գյուղի մոտ է գտնվում «Բավրա» պետական սահմանային անցակետը:</li>
+          <li><strong>Գյուղատնտեսություն․</strong> Անասնապահություն, կաթնամթերք, մեղվաբուծություն և ցուրտ կլիմային դիմացկուն հացահատիկներ (ցորեն, հնդկաձավար):</li>
+          <li><strong>Տեղական ձեռնարկություններ․</strong> «Նոր Հատիկ» և այլ տեղական նախագծեր։</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Լուսանկարներ (Սեղմեք մեծացնելու համար)</h2>
+      <div class="section-content">
+        <div class="gallery">
+          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
+            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA" alt="Սուրբ Նշան եկեղեցի">
+            <p>Սուրբ Նշան եկեղեցի</p>
+          </div>
+          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
+            <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRAlXhdyjoIJ9IzAtQc2H5UpTw66Fl-st7KS-m8S2MX_we5Ys6doxAVYV6np1lIPGQ1p60f8N955OWPH5k" alt="Բավրայի սահմանային անցակետ">
+            <p>Բավրայի սահմանային անցակետ</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Image Lightbox Modal -->
   <div id="imgModal" class="modal" onclick="closeModal()">
     <img id="modalImg" src="" alt="Enlarged view">
   </div>
@@ -316,6 +359,14 @@
   </footer>
 
   <script>
+    // Clickable Accordion Titles
+    document.querySelectorAll('.section-title').forEach(title => {
+      title.addEventListener('click', () => {
+        const parentSection = title.parentElement;
+        parentSection.classList.toggle('active');
+      });
+    });
+
     // Pure Time Clock (HH:MM:SS)
     function updateClock() {
       const options = {
