@@ -3,81 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Բավրա Գյուղ | Bavra Village</title>
+<title>Bavra Village</title>
 
 <style>
 :root{
---bg:#f4f4f9;--card:#fff;--text:#333;--head:#2c3e50;
---pri:#2980b9;--sub:#7f8c8d;--fact:#eef7fc;--border:#ddd;
+ --bg:#f4f4f9;--card:#fff;--text:#333;--head:#263747;
+ --primary:#2980b9;--muted:#7f8c8d;--fact:#eef7fc;--border:#ddd;
 }
-[data-theme=dark]{
---bg:#121212;--card:#1e1e1e;--text:#eee;--head:#fff;
---pri:#f1c40f;--sub:#bbb;--fact:#2a2a1a;--border:#444;
+[data-theme="dark"]{
+ --bg:#121212;--card:#1e1e1e;--text:#eee;--head:#fff;
+ --primary:#f1c40f;--muted:#bbb;--fact:#292918;--border:#444;
 }
 *{box-sizing:border-box}
 body{
-max-width:800px;margin:auto;padding:15px;font-family:Arial;
-line-height:1.5;background:var(--bg);color:var(--text)
+ margin:auto;max-width:850px;padding:15px;
+ font:16px Arial;line-height:1.6;
+ background:var(--bg);color:var(--text)
 }
 nav,section{
-background:var(--card);border:1px solid var(--border);
-box-shadow:0 2px 5px #0002;border-radius:8px
+ background:var(--card);border:1px solid var(--border);
+ border-radius:9px;box-shadow:0 2px 6px #0002
 }
 nav{
-display:flex;justify-content:space-between;align-items:center;
-padding:10px 15px;margin-bottom:20px
+ padding:10px 15px;margin-bottom:20px;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px
 }
-.brand{color:var(--pri);font-weight:bold}
-.controls{display:flex;gap:7px;align-items:center}
+.brand{color:var(--primary);font-weight:bold}
+.controls{display:flex;align-items:center;gap:7px}
 button{
-border:0;border-radius:20px;padding:8px 13px;
-background:var(--pri);color:var(--card);font-weight:bold;cursor:pointer
+ border:0;border-radius:20px;padding:8px 13px;
+ background:var(--primary);color:var(--card);
+ font-weight:bold;cursor:pointer
 }
 button:disabled{opacity:.4;cursor:not-allowed}
 .clock{
-padding:4px 9px;border:1px solid var(--pri);
-border-radius:20px;color:var(--pri);font-family:monospace
+ color:var(--primary);border:1px solid var(--primary);
+ padding:3px 9px;border-radius:20px;font-family:monospace
 }
 header{text-align:center;border-bottom:2px solid var(--head);margin-bottom:20px}
-h1{color:var(--head);margin-bottom:3px}
-.subtitle{color:var(--sub);font-style:italic}
+h1{color:var(--head);margin-bottom:0}
+.subtitle{color:var(--muted);font-style:italic}
 section{margin-bottom:15px;overflow:hidden}
 .title{
-margin:0;padding:16px 18px;color:var(--pri);
-display:flex;justify-content:space-between;cursor:pointer
+ margin:0;padding:16px 18px;color:var(--primary);
+ display:flex;justify-content:space-between;cursor:pointer
 }
 .title:after{content:"▼"}
 section:not(.open) .content{display:none}
-section.open .title:after{transform:rotate(180deg)}
-.content{padding:15px 18px;border-top:1px solid var(--border)}
+.open .title:after{transform:rotate(180deg)}
+.content{padding:16px 18px;border-top:1px solid var(--border)}
 .grid{display:grid;gap:10px}
 .g4{grid-template-columns:repeat(4,1fr)}
 .g3{grid-template-columns:repeat(3,1fr)}
 .card{
-background:var(--fact);border-left:4px solid var(--pri);
-padding:12px;text-align:center;border-radius:5px
+ background:var(--fact);border-left:4px solid var(--primary);
+ padding:12px;border-radius:5px;text-align:center
 }
-.card h3{margin:0;color:var(--pri)}
+.card h3{margin:0;color:var(--primary)}
+.history{
+ padding:15px;margin:10px 0;
+ background:var(--fact);border-left:5px solid var(--primary);
+ border-radius:5px
+}
+.history h3{color:var(--primary);margin-top:0}
 .gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.photo{border:1px solid var(--border);border-radius:6px;overflow:hidden;text-align:center}
+.photo{border:1px solid var(--border);border-radius:7px;overflow:hidden;text-align:center}
 .photo img{width:100%;height:210px;object-fit:cover;display:block}
-.photo p{margin:0;padding:7px}
+.photo p{margin:0;padding:8px}
 .map{width:100%;height:280px;border:0;border-radius:7px}
 .option{
-display:block;width:100%;margin:7px 0;text-align:left;
-background:var(--fact);color:var(--text);border:1px solid var(--border)
+ display:block;width:100%;margin:7px 0;
+ text-align:left;background:var(--fact);
+ color:var(--text);border:1px solid var(--border)
 }
-.option.selected{outline:2px solid var(--pri)}
+.option.selected{outline:2px solid var(--primary)}
 .quiznav{display:flex;justify-content:space-between;margin-top:15px}
 .analysis{
-display:none;margin-top:20px;padding:15px;
-background:var(--fact);border-left:5px solid var(--pri)
+ display:none;margin-top:20px;padding:15px;
+ background:var(--fact);border-left:5px solid var(--primary)
 }
-.result{padding:10px;margin-top:8px;background:var(--card);border:1px solid var(--border)}
+.result{
+ margin-top:8px;padding:10px;
+ background:var(--card);border:1px solid var(--border)
+}
 .good{color:#27ae60}.bad{color:#c0392b}
 @media(max-width:600px){
-.g4,.g3,.gallery{grid-template-columns:1fr}
-nav{flex-wrap:wrap}.controls{margin-left:auto}
+ .g4,.g3,.gallery{grid-template-columns:1fr}
+ nav{flex-wrap:wrap}
 }
 </style>
 </head>
@@ -86,6 +99,7 @@ nav{flex-wrap:wrap}.controls{margin-left:auto}
 
 <nav>
 <span class="brand" data-k="brand">📍 Բավրա Տեղեկատու</span>
+
 <div class="controls">
 <span class="clock" id="clock">00:00:00</span>
 <button id="lang">ENG</button>
@@ -95,49 +109,211 @@ nav{flex-wrap:wrap}.controls{margin-left:auto}
 
 <header>
 <h1 data-k="title">Բավրա Գյուղ</h1>
-<p class="subtitle" data-k="subtitle">Շիրակի մարզ, Աշոցքի համայնք</p>
+<p class="subtitle" data-k="subtitle">
+Շիրակի մարզ, Աշոցքի համայնք
+</p>
 </header>
 
 <main>
 
+<!-- FACTS -->
 <section class="open">
 <h2 class="title" data-k="facts">Հիմնական Տվյալներ</h2>
+
 <div class="content">
 <div class="grid g4">
-<div class="card"><h3>652</h3><span data-k="population">Բնակչություն</span></div>
-<div class="card"><h3>2,150 մ</h3><span data-k="elevation">Բարձրություն</span></div>
-<div class="card"><h3>1.7 կմ²</h3><span data-k="area">Մակերես</span></div>
-<div class="card"><h3>+374 312</h3><span data-k="phone">Հեռ. Կոդ</span></div>
+
+<div class="card">
+<h3>652</h3>
+<span data-k="population">Բնակչություն</span>
+</div>
+
+<div class="card">
+<h3>2,150 մ</h3>
+<span data-k="elevation">Բարձրություն</span>
+</div>
+
+<div class="card">
+<h3>1.7 կմ²</h3>
+<span data-k="area">Մակերես</span>
+</div>
+
+<div class="card">
+<h3>+374 312</h3>
+<span data-k="phone">Հեռ. Կոդ</span>
+</div>
+
 </div>
 </div>
 </section>
 
+
+<!-- HISTORY -->
+<section class="open">
+<h2 class="title" data-k="history">Բավրայի Պատմություն</h2>
+
+<div class="content">
+
+<div class="history">
+<h3 data-k="oldTitle">🏚️ Հին Բավրա</h3>
+
+<p data-k="oldStory">
+Ըստ Բավրայում պատմվող ավանդության՝ Հին Բավրայում
+տեղի են ունեցել բազմաթիվ երկրաշարժեր։
+</p>
+
+<p data-k="moveStory">
+Մարդիկ սկսեցին տեղափոխվել ավելի հարավ։
+1958 թվականի դեկտեմբերի 7-ին տեղի ունեցավ երկրաշարժ։
+</p>
+
+<p data-k="housesStory">
+Հին Բավրայի տները ժամանակի ընթացքում մարդիկ
+քանդեցին, իսկ եկեղեցին մնաց կանգուն։
+</p>
+</div>
+
+
+<div class="history">
+<h3 data-k="newTitle">🏘️ Նոր Բավրա</h3>
+
+<p data-k="newStory">
+Նոր Բավրան ձևավորվեց Հին Բավրայից ավելի հարավ։
+Սկզբում Նոր Բավրայում եկեղեցի չկար։
+</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- CHURCH -->
+<section>
+<h2 class="title" data-k="churchTitle">⛪ Նոր Բավրայի Եկեղեցին</h2>
+
+<div class="content">
+
+<div class="history">
+
+<p data-k="churchStory1">
+Նոր Բավրայում սկզբում եկեղեցի չկար։ Մարդիկ ցանկանում էին
+գնալ եկեղեցի, սակայն Հին Բավրայի եկեղեցին հեռու էր,
+իսկ ճանապարհը հատկապես ձմռանը դժվար էր։
+</p>
+
+<p data-k="churchStory2">
+Ըստ պատմության՝ եկեղեցի կառուցելու գաղափարը պատկանում էր
+Բավրայի այն ժամանակվա ղեկավարին՝ ընտանիքի պատմության
+մեջ հիշվող որպես օգտագործողի հայրը։
+</p>
+
+<p data-k="churchStory3">
+Նրա եղբայրը պատրաստեց եկեղեցու նախագիծը և մասնակցեց
+կառուցմանը։ Նրանք միասին աշխատեցին, և գյուղացիներն
+էլ եկան օգնելու։
+</p>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- BAVRA STORIES -->
+<section>
+<h2 class="title" data-k="storiesTitle">📖 Բավրայի Պատմություններ</h2>
+
+<div class="content">
+
+<div class="history">
+
+<h3 data-k="storyTitle">
+Հին Բավրայի մասին պատմվող մի պատմություն
+</h3>
+
+<p data-k="story1">
+Ըստ պատմվող պատմության՝ Հին Բավրայում թուրք բնակիչներ
+էլ են ապրել։
+</p>
+
+<p data-k="story2">
+Պատմության մեջ մի Բավրացի մետաղի հետ էր աշխատում։
+Նա մի թուրք մարդու հրավիրեց իր մոտ և սկսեց աշխատել
+մետաղի վրա՝ նրան պատմություններ պատմելով։
+</p>
+
+<p data-k="story3">
+Պատմության համաձայն՝ դա նախապես մտածված ծրագիր էր։
+Երբ մարդը հասկացավ, թե ինչ էր կատարվում, նա փախավ։
+</p>
+
+<p data-k="story4">
+Հետո Բավրացիներին հարցրեցին, թե ինչ էր տեղի ունեցել։
+Նա պատասխանեց.
+</p>
+
+<blockquote>
+«Ընենց բան եմ արել, որ էլ ոտը Բավրա չի դնի»։
+</blockquote>
+
+<p data-k="storyNote">
+Այս բաժինը ներկայացնում է գյուղում պատմվող պատմություն
+և ոչ թե հաստատված պատմական փաստ։
+</p>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- WEATHER -->
 <section class="open">
 <h2 class="title" data-k="weather">Ընթացիկ Եղանակ</h2>
+
 <div class="content">
 <div class="grid g3">
-<div class="card"><h3 id="temp">--</h3><span data-k="temperature">Ջերմաստիճան</span></div>
-<div class="card"><h3 id="wind">--</h3><span data-k="wind">Քամի</span></div>
-<div class="card"><h3 id="condition">...</h3><span data-k="condition">Վիճակ</span></div>
+
+<div class="card">
+<h3 id="temp">--</h3>
+<span data-k="temperature">Ջերմաստիճան</span>
+</div>
+
+<div class="card">
+<h3 id="wind">--</h3>
+<span data-k="wind">Քամի</span>
+</div>
+
+<div class="card">
+<h3 id="condition">...</h3>
+<span data-k="condition">Վիճակ</span>
+</div>
+
 </div>
 </div>
 </section>
 
+
+<!-- AGRICULTURE -->
 <section>
-<h2 class="title" data-k="agriculture">Գյուղատնտեսություն և Արտադրություն</h2>
+<h2 class="title" data-k="agriculture">
+Գյուղատնտեսություն և Արտադրություն
+</h2>
+
 <div class="content">
+
 <div class="grid g3">
 
 <div class="card">
 <h3>🌾</h3>
 <b data-k="grainTitle">Ցորեն և Հնդկացորեն</b>
-<p data-k="grain">Բարձրլեռնային դիմացկուն հացահատիկներ</p>
+<p data-k="grain">Բարձրլեռնային հացահատիկներ</p>
 </div>
 
 <div class="card">
 <h3>🐝</h3>
 <b data-k="honeyTitle">Մեղվաբուծություն</b>
-<p data-k="honey">Մաքուր լեռնային ծաղկային մեղր</p>
+<p data-k="honey">Լեռնային ծաղկային մեղր</p>
 </div>
 
 <div class="card">
@@ -147,36 +323,51 @@ nav{flex-wrap:wrap}.controls{margin-left:auto}
 </div>
 
 </div>
+
 </div>
 </section>
 
+
+<!-- GEOGRAPHY -->
 <section>
 <h2 class="title" data-k="geo">Աշխարհագրություն</h2>
+
 <div class="content">
+
 <ul>
 <li data-k="location">
-Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում
-(41°07′09″ հս. լ. 43°48′33″ ավ. եր.)։
+Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում։
 </li>
+
 <li data-k="distance">
-Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ։
+Վրաստանի սահմանին մոտ, Գյումրիից մոտ 50 կմ։
 </li>
 </ul>
+
 </div>
 </section>
 
+
+<!-- MAP -->
 <section>
 <h2 class="title" data-k="map">Քարտեզ</h2>
+
 <div class="content">
+
 <iframe class="map" loading="lazy"
 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s">
 </iframe>
+
 </div>
 </section>
 
+
+<!-- PHOTOS -->
 <section>
 <h2 class="title" data-k="photos">Լուսանկարներ</h2>
+
 <div class="content">
+
 <div class="gallery">
 
 <div class="photo">
@@ -195,8 +386,11 @@ alt="Բավրայի մաքսակետ">
 </div>
 </section>
 
+
+<!-- QUIZ -->
 <section class="open">
-<h2 class="title" data-k="nshan">Նշան</h2>
+<h2 class="title" data-k="quizTitle">🧠 Բավրա Quiz</h2>
+
 <div class="content">
 
 <div id="question"></div>
@@ -204,13 +398,15 @@ alt="Բավրայի մաքսակետ">
 
 <div class="quiznav">
 <button id="prev">◄</button>
-<button id="next">Հաջորդ ►</button>
+<button id="next">Next ►</button>
 </div>
 
 <div class="analysis" id="analysis">
 <h3 id="score"></h3>
 <div id="results"></div>
-<button onclick="startQuiz()">🔄 Կրկին</button>
+<button onclick="startQuiz()" data-k="restart">
+🔄 Կրկին
+</button>
 </div>
 
 </div>
@@ -218,81 +414,242 @@ alt="Բավրայի մաքսակետ">
 
 </main>
 
+
 <script>
+
+/* LANGUAGES */
+
 const T={
-ARM:{
-brand:"📍 Բավրա Տեղեկատու",title:"Բավրա Գյուղ",
-subtitle:"Շիրակի մարզ, Աշոցքի համայնք",facts:"Հիմնական Տվյալներ",
-population:"Բնակչություն",elevation:"Բարձրություն",area:"Մակերես",
-phone:"Հեռ. Կոդ",weather:"Ընթացիկ Եղանակ",temperature:"Ջերմաստիճան",
-wind:"Քամի",condition:"Վիճակ",agriculture:"Գյուղատնտեսություն և Արտադրություն",
-grainTitle:"Ցորեն և Հնդկացորեն",grain:"Բարձրլեռնային դիմացկուն հացահատիկներ",
-honeyTitle:"Մեղվաբուծություն",honey:"Մաքուր լեռնային ծաղկային մեղր",
-enterprise:"Տեղական ձեռնարկատիրություն",geo:"Աշխարհագրություն",
-location:"Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.)։",
-distance:"Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ։",
-map:"Քարտեզ",photos:"Լուսանկարներ",church:"Սուրբ Նշան եկեղեցի",
-checkpoint:"Բավրայի մաքսակետ",nshan:"Նշան",next:"Հաջորդ ►",
-prev:"◄ Նախորդ",finish:"Ավարտել ✓",choose:"Ընտրեք պատասխան։",
-correct:"Ճիշտ",wrong:"Սխալ",restart:"🔄 Կրկին",unavailable:"Անհասանելի"
+
+hy:{
+brand:"📍 Բավրա Տեղեկատու",
+title:"Բավրա Գյուղ",
+subtitle:"Շիրակի մարզ, Աշոցքի համայնք",
+facts:"Հիմնական Տվյալներ",
+population:"Բնակչություն",
+elevation:"Բարձրություն",
+area:"Մակերես",
+phone:"Հեռ. Կոդ",
+history:"Բավրայի Պատմություն",
+oldTitle:"🏚️ Հին Բավրա",
+oldStory:"Ըստ Բավրայում պատմվող ավանդության՝ Հին Բավրայում տեղի են ունեցել բազմաթիվ երկրաշարժեր։",
+moveStory:"Մարդիկ սկսեցին տեղափոխվել ավելի հարավ։ 1958 թվականի դեկտեմբերի 7-ին տեղի ունեցավ երկրաշարժ։",
+housesStory:"Հին Բավրայի տները ժամանակի ընթացքում մարդիկ քանդեցին, իսկ եկեղեցին մնաց կանգուն։",
+newTitle:"🏘️ Նոր Բավրա",
+newStory:"Նոր Բավրան ձևավորվեց Հին Բավրայից ավելի հարավ։ Սկզբում Նոր Բավրայում եկեղեցի չկար։",
+churchTitle:"⛪ Նոր Բավրայի Եկեղեցին",
+churchStory1:"Նոր Բավրայում սկզբում եկեղեցի չկար։ Մարդիկ ցանկանում էին գնալ եկեղեցի, սակայն Հին Բավրայի եկեղեցին հեռու էր, իսկ ճանապարհը ձմռանը դժվար էր։",
+churchStory2:"Ըստ պատմության՝ եկեղեցի կառուցելու գաղափարը պատկանում էր Բավրայի այն ժամանակվա ղեկավարին։",
+churchStory3:"Նրա եղբայրը պատրաստեց եկեղեցու նախագիծը և մասնակցեց կառուցմանը։ Նրանք միասին աշխատեցին, և գյուղացիներն էլ եկան օգնելու։",
+storiesTitle:"📖 Բավրայի Պատմություններ",
+storyTitle:"Հին Բավրայի մասին պատմվող մի պատմություն",
+story1:"Ըստ պատմվող պատմության՝ Հին Բավրայում թուրք բնակիչներ էլ են ապրել։",
+story2:"Պատմության մեջ մի Բավրացի մետաղի հետ էր աշխատում։ Նա մի թուրք մարդու հրավիրեց իր մոտ և սկսեց աշխատել մետաղի վրա՝ նրան պատմություններ պատմելով։",
+story3:"Պատմության համաձայն՝ դա նախապես մտածված ծրագիր էր։ Երբ մարդը հասկացավ, թե ինչ էր կատարվում, նա փախավ։",
+story4:"Հետո Բավրացիներին հարցրեցին, թե ինչ էր տեղի ունեցել։ Նա պատասխանեց.",
+storyNote:"Այս բաժինը ներկայացնում է գյուղում պատմվող պատմություն և ոչ թե հաստատված պատմական փաստ։",
+weather:"Ընթացիկ Եղանակ",
+temperature:"Ջերմաստիճան",
+wind:"Քամի",
+condition:"Վիճակ",
+agriculture:"Գյուղատնտեսություն և Արտադրություն",
+grainTitle:"Ցորեն և Հնդկացորեն",
+grain:"Բարձրլեռնային հացահատիկներ",
+honeyTitle:"Մեղվաբուծություն",
+honey:"Լեռնային ծաղկային մեղր",
+enterprise:"Տեղական ձեռնարկատիրություն",
+geo:"Աշխարհագրություն",
+location:"Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում։",
+distance:"Վրաստանի սահմանին մոտ, Գյումրիից մոտ 50 կմ։",
+map:"Քարտեզ",
+photos:"Լուսանկարներ",
+church:"Սուրբ Նշան եկեղեցի",
+checkpoint:"Բավրայի մաքսակետ",
+quizTitle:"🧠 Բավրա Quiz",
+restart:"🔄 Կրկին",
+correct:"Ճիշտ",
+wrong:"Սխալ"
 },
-ENG:{
-brand:"📍 Bavra Info",title:"Bavra Village",
-subtitle:"Shirak Region, Ashotsk Community",facts:"Key Facts",
-population:"Population",elevation:"Elevation",area:"Area",
-phone:"Phone Code",weather:"Live Weather",temperature:"Temperature",
-wind:"Wind Speed",condition:"Condition",agriculture:"Agriculture & Produce",
-grainTitle:"Wheat & Buckwheat",grain:"Cold-hardy high-altitude grains",
-honeyTitle:"Beekeeping",honey:"Pure alpine flower honey",
-enterprise:"Local agricultural enterprise",geo:"Geography",
-location:"Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).",
-distance:"Distance from Georgian border: 2 km; from Gyumri: 50 km.",
-map:"Map",photos:"Photos",church:"Surb Nshan Church",
-checkpoint:"Bavra Checkpoint",nshan:"Nshan",next:"Next ►",
-prev:"◄ Previous",finish:"Finish ✓",choose:"Please select an answer.",
-correct:"Correct",wrong:"Wrong",restart:"🔄 Restart",unavailable:"Unavailable"
+
+en:{
+brand:"📍 Bavra Info",
+title:"Bavra Village",
+subtitle:"Shirak Region, Ashotsk Community",
+facts:"Key Facts",
+population:"Population",
+elevation:"Elevation",
+area:"Area",
+phone:"Phone Code",
+history:"History of Bavra",
+oldTitle:"🏚️ Old Bavra",
+oldStory:"According to a story told in Bavra, Old Bavra experienced many earthquakes.",
+moveStory:"People began moving farther south. An earthquake occurred on December 7, 1958.",
+housesStory:"Over time, people dismantled the houses of Old Bavra, while the church remained standing.",
+newTitle:"🏘️ New Bavra",
+newStory:"New Bavra developed farther south from Old Bavra. At first, there was no church in New Bavra.",
+churchTitle:"⛪ New Bavra Church",
+churchStory1:"At first, New Bavra had no church. People wanted to attend church, but the old church was far away and the road was difficult in winter.",
+churchStory2:"According to the family story, the idea to build a church came from Bavra's leader at the time.",
+churchStory3:"His brother designed the church and helped build it. They worked together, and villagers also came to help.",
+storiesTitle:"📖 Bavra Stories",
+storyTitle:"A story told about Old Bavra",
+story1:"According to the story, Turkish residents also lived in Old Bavra.",
+story2:"In the story, a Bavraian man worked with metal. He invited a Turkish man over and worked with the metal while telling him stories.",
+story3:"According to the story, this was part of a planned trick. When the man realized what was happening, he ran away.",
+story4:"Later, the Bavraians asked what had happened. He replied:",
+storyNote:"This section presents a local story and not a verified historical fact.",
+weather:"Live Weather",
+temperature:"Temperature",
+wind:"Wind",
+condition:"Condition",
+agriculture:"Agriculture & Produce",
+grainTitle:"Wheat & Buckwheat",
+grain:"High-altitude grains",
+honeyTitle:"Beekeeping",
+honey:"Mountain flower honey",
+enterprise:"Local agricultural enterprise",
+geo:"Geography",
+location:"Located in the Ashotsk area of Shirak Region.",
+distance:"Near the Georgian border, about 50 km from Gyumri.",
+map:"Map",
+photos:"Photos",
+church:"Surb Nshan Church",
+checkpoint:"Bavra Checkpoint",
+quizTitle:"🧠 Bavra Quiz",
+restart:"🔄 Restart",
+correct:"Correct",
+wrong:"Wrong"
+},
+
+ru:{
+brand:"📍 Информация о Бавре",
+title:"Село Бавра",
+subtitle:"Ширакская область, община Ашоцк",
+facts:"Основные данные",
+population:"Население",
+elevation:"Высота",
+area:"Площадь",
+phone:"Телефонный код",
+history:"История Бавры",
+oldTitle:"🏚️ Старая Бавра",
+oldStory:"Согласно рассказам, в Старой Бавре происходило много землетрясений.",
+moveStory:"Люди начали переселяться немного южнее. 7 декабря 1958 года произошло землетрясение.",
+housesStory:"Со временем люди разобрали дома Старой Бавры, а церковь осталась стоять.",
+newTitle:"🏘️ Новая Бавра",
+newStory:"Новая Бавра появилась южнее Старой Бавры. Сначала в Новой Бавре церкви не было.",
+churchTitle:"⛪ Церковь Новой Бавры",
+churchStory1:"Сначала в Новой Бавре не было церкви. Люди хотели ходить в церковь, но старая церковь была далеко, а зимой дорога была трудной.",
+churchStory2:"Согласно семейной истории, идея построить церковь принадлежала тогдашнему руководителю Бавры.",
+churchStory3:"Его брат разработал проект церкви и помогал её строить. Они работали вместе, а жители села тоже помогали.",
+storiesTitle:"📖 Истории Бавры",
+storyTitle:"История, которую рассказывают о Старой Бавре",
+story1:"Согласно рассказу, в Старой Бавре жили также турки.",
+story2:"В этой истории один баврец работал с металлом. Он пригласил турка и работал с металлом, рассказывая ему истории.",
+story3:"Согласно рассказу, это было частью заранее задуманного плана. Когда мужчина понял, что происходит, он убежал.",
+story4:"Позже баврцы спросили, что произошло. Он ответил:",
+storyNote:"Этот раздел представляет местную историю, а не подтверждённый исторический факт.",
+weather:"Текущая погода",
+temperature:"Температура",
+wind:"Ветер",
+condition:"Состояние",
+agriculture:"Сельское хозяйство",
+grainTitle:"Пшеница и гречиха",
+grain:"Высокогорные зерновые",
+honeyTitle:"Пчеловодство",
+honey:"Горный цветочный мёд",
+enterprise:"Местное сельскохозяйственное предприятие",
+geo:"География",
+location:"Находится в районе Ашоцка Ширакской области.",
+distance:"Недалеко от границы с Грузией, около 50 км от Гюмри.",
+map:"Карта",
+photos:"Фотографии",
+church:"Церковь Сурб Ншан",
+checkpoint:"Баврский пункт пропуска",
+quizTitle:"🧠 Викторина",
+restart:"🔄 Заново",
+correct:"Правильно",
+wrong:"Неправильно"
+},
+
+es:{
+brand:"📍 Información de Bavra",
+title:"Pueblo de Bavra",
+subtitle:"Región de Shirak, comunidad de Ashotsk",
+facts:"Datos principales",
+population:"Población",
+elevation:"Altitud",
+area:"Superficie",
+phone:"Código telefónico",
+history:"Historia de Bavra",
+oldTitle:"🏚️ Bavra Antigua",
+oldStory:"Según una historia contada en Bavra, en la Antigua Bavra hubo muchos terremotos.",
+moveStory:"La gente comenzó a trasladarse un poco hacia el sur. El 7 de diciembre de 1958 ocurrió un terremoto.",
+housesStory:"Con el tiempo, la gente desmontó las casas de la Antigua Bavra, mientras la iglesia permaneció en pie.",
+newTitle:"🏘️ Nueva Bavra",
+newStory:"La Nueva Bavra se desarrolló más al sur de la Antigua Bavra. Al principio no había iglesia en la Nueva Bavra.",
+churchTitle:"⛪ Iglesia de la Nueva Bavra",
+churchStory1:"Al principio la Nueva Bavra no tenía iglesia. La gente quería ir a la iglesia, pero la antigua iglesia estaba lejos y el camino era difícil en invierno.",
+churchStory2:"Según la historia familiar, la idea de construir una iglesia fue del líder de Bavra de aquella época.",
+churchStory3:"Su hermano diseñó la iglesia y ayudó a construirla. Trabajaron juntos y los habitantes del pueblo también ayudaron.",
+storiesTitle:"📖 Historias de Bavra",
+storyTitle:"Una historia contada sobre la Antigua Bavra",
+story1:"Según la historia, también vivían turcos en la Antigua Bavra.",
+story2:"En la historia, un hombre de Bavra trabajaba con metal. Invitó a un hombre turco y trabajó con el metal mientras le contaba historias.",
+story3:"Según la historia, todo formaba parte de un plan. Cuando el hombre entendió lo que estaba pasando, salió corriendo.",
+story4:"Después, los habitantes de Bavra le preguntaron qué había ocurrido. Él respondió:",
+storyNote:"Esta sección presenta una historia local y no un hecho histórico verificado.",
+weather:"Clima actual",
+temperature:"Temperatura",
+wind:"Viento",
+condition:"Condición",
+agriculture:"Agricultura",
+grainTitle:"Trigo y alforfón",
+grain:"Granos de alta montaña",
+honeyTitle:"Apicultura",
+honey:"Miel de flores de montaña",
+enterprise:"Empresa agrícola local",
+geo:"Geografía",
+location:"Se encuentra en la zona de Ashotsk, en la región de Shirak.",
+distance:"Cerca de la frontera con Georgia, a unos 50 km de Gyumri.",
+map:"Mapa",
+photos:"Fotos",
+church:"Iglesia Surb Nshan",
+checkpoint:"Puesto fronterizo de Bavra",
+quizTitle:"🧠 Quiz de Bavra",
+restart:"🔄 Reiniciar",
+correct:"Correcto",
+wrong:"Incorrecto"
 }
+
 };
 
-let lang="ARM";
+let lang="hy";
 
-function tr(){
+function translate(){
 document.querySelectorAll("[data-k]").forEach(e=>{
 e.textContent=T[lang][e.dataset.k];
 });
-langBtn.textContent=lang==="ARM"?"ENG":"ARM";
 renderQuiz();
 }
 
-const langBtn=document.getElementById("lang");
-
-langBtn.onclick=()=>{
-lang=lang==="ARM"?"ENG":"ARM";
-tr();
+document.getElementById("lang").onclick=()=>{
+lang={hy:"en",en:"ru",ru:"es",es:"hy"}[lang];
+document.getElementById("lang").textContent=
+{hy:"ENG",en:"РУС",ru:"ESP",es:"ARM"}[lang];
+translate();
 weather();
 };
 
 
-/* Accordion */
-document.querySelectorAll(".title").forEach(x=>{
-x.onclick=()=>x.parentElement.classList.toggle("open");
+/* ACCORDIONS */
+
+document.querySelectorAll(".title").forEach(t=>{
+t.onclick=()=>t.parentElement.classList.toggle("open");
 });
 
 
-/* Clock */
-function clock(){
-document.getElementById("clock").textContent=
-new Intl.DateTimeFormat("en-US",{
-timeZone:"Asia/Yerevan",
-hour:"2-digit",minute:"2-digit",second:"2-digit",
-hour12:false
-}).format(new Date());
-}
-clock();
-setInterval(clock,1000);
+/* DARK / BRIGHT */
 
-
-/* Dark mode */
 const theme=document.getElementById("theme");
 
 function setTheme(dark){
@@ -310,162 +667,41 @@ document.documentElement.getAttribute("data-theme")!=="dark"
 };
 
 
-/* Weather */
+/* CLOCK */
+
+function clock(){
+document.getElementById("clock").textContent=
+new Intl.DateTimeFormat("en-US",{
+timeZone:"Asia/Yerevan",
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit",
+hour12:false
+}).format(new Date());
+}
+
+clock();
+setInterval(clock,1000);
+
+
+/* WEATHER */
+
 async function weather(){
+
 try{
+
 const r=await fetch(
 "https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current=temperature_2m,wind_speed_10m,weather_code"
 );
-const d=await r.json(),w=d.current;
 
-document.getElementById("temp").textContent=w.temperature_2m+" °C";
-document.getElementById("wind").textContent=w.wind_speed_10m+" km/h";
+const d=await r.json();
+const w=d.current;
 
-const codes={
-0:["☀️ Պարզ","☀️ Clear"],
-1:["🌤️ Հիմնականում պարզ","🌤️ Mostly clear"],
-2:["⛅ Մասամբ ամպամած","⛅ Partly cloudy"],
-3:["☁️ Ամպամած","☁️ Cloudy"],
-45:["🌫️ Մառախուղ","🌫️ Fog"],
-51:["🌦️ Թույլ անձրև","🌦️ Light rain"],
-61:["🌧️ Անձրև","🌧️ Rain"],
-71:["🌨️ Ձյուն","🌨️ Snow"],
-80:["🌦️ Անձրև","🌦️ Rain"],
-95:["⛈️ Ամպրոպ","⛈️ Thunderstorm"]
-};
+document.getElementById("temp").textContent=
+w.temperature_2m+" °C";
 
-document.getElementById("condition").textContent=
-(codes[w.weather_code]||[T[lang].unavailable,T[lang].unavailable])
-[lang==="ARM"?0:1];
+document.getElementById("wind").textContent=
+w.wind_speed_10m+" km/h";
 
-}catch{
-document.getElementById("condition").textContent=T[lang].unavailable;
-}
-}
-weather();
-
-
-/* Quiz */
-const quiz=[
-{
-q:["Որքա՞ն է Բավրայի բարձրությունը ծովի մակերևույթից?",
-"What is Bavra's elevation above sea level?"],
-o:[
-["1,800 մ","1,800 m"],
-["2,150 մ","2,150 m"],
-["2,500 մ","2,500 m"]
-],a:1
-},
-{
-q:["Ո՞ր մարզում է գտնվում Բավրա գյուղը?",
-"Which region is Bavra located in?"],
-o:[
-["Լոռի","Lori"],
-["Շիրակ","Shirak"],
-["Սյունիք","Syunik"]
-],a:1
-},
-{
-q:["Ո՞ր երկրի սահմանին է մոտ Բավրայի մաքսակետը?",
-"Which country's border is the Bavra checkpoint near?"],
-o:[
-["Վրաստան","Georgia"],
-["Իրան","Iran"],
-["Թուրքիա","Turkey"]
-],a:0
-}
-];
-
-let current=0,answers=[];
-
-function renderQuiz(){
-const q=quiz[current];
-const L=lang==="ARM"?0:1;
-
-document.getElementById("question").textContent=
-`${current+1}. ${q.q[L]}`;
-
-const box=document.getElementById("options");
-box.innerHTML="";
-
-q.o.forEach((o,i)=>{
-const b=document.createElement("button");
-b.className="option";
-b.textContent=o[L];
-
-if(answers[current]===i)b.classList.add("selected");
-
-b.onclick=()=>{
-answers[current]=i;
-renderQuiz();
-};
-
-box.appendChild(b);
-});
-
-prev.disabled=current===0;
-next.disabled=answers[current]===undefined;
-next.textContent=
-current===quiz.length-1?T[lang].finish:T[lang].next;
-}
-
-prev.onclick=()=>{
-if(current>0){current--;renderQuiz();}
-};
-
-next.onclick=()=>{
-if(answers[current]===undefined){
-alert(T[lang].choose);
-return;
-}
-
-if(current<quiz.length-1){
-current++;
-renderQuiz();
-}else{
-showResults();
-}
-};
-
-function showResults(){
-let score=0;
-
-quiz.forEach((q,i)=>{
-if(answers[i]===q.a)score++;
-});
-
-document.getElementById("score").textContent=
-`${score}/${quiz.length} — ${Math.round(score/quiz.length*100)}%`;
-
-const results=document.getElementById("results");
-results.innerHTML="";
-
-quiz.forEach((q,i)=>{
-const good=answers[i]===q.a;
-const div=document.createElement("div");
-div.className="result";
-
-div.innerHTML=
-`<b>${i+1}. ${q.q[lang==="ARM"?0:1]}</b>
-<p class="${good?"good":"bad"}">
-${good?"✓ "+T[lang].correct:"✗ "+T[lang].wrong}
-</p>`;
-
-results.appendChild(div);
-});
-
-document.getElementById("analysis").style.display="block";
-}
-
-function startQuiz(){
-current=0;
-answers=[];
-document.getElementById("analysis").style.display="none";
-renderQuiz();
-}
-
-startQuiz();
-</script>
-
-</body>
-</html>
+const names={
+0:["☀️ Պարզ","☀️ Clear","☀️ Ясно","☀️ Despej
