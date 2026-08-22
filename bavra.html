@@ -10,11 +10,12 @@
       --card-bg: #ffffff;
       --text-color: #333333;
       --heading-color: #2c3e50;
-      --primary-color: #2980b9;
+      --primary-color: #2980b9; /* Blue in Light Mode */
       --subtitle-color: #7f8c8d;
       --fact-bg: #eef7fc;
       --card-border: #ddd;
       --shadow: rgba(0, 0, 0, 0.1);
+      --btn-text-color: #ffffff;
     }
 
     [data-theme="dark"] {
@@ -22,11 +23,12 @@
       --card-bg: #1e1e1e;
       --text-color: #e0e0e0;
       --heading-color: #ecf0f1;
-      --primary-color: #3498db;
+      --primary-color: #f1c40f; /* Yellow in Dark Mode */
       --subtitle-color: #bdc3c7;
-      --fact-bg: #2c3e50;
-      --card-border: #333;
+      --fact-bg: #2a2a1a;
+      --card-border: #444;
       --shadow: rgba(0, 0, 0, 0.5);
+      --btn-text-color: #121212;
     }
 
     body {
@@ -48,38 +50,47 @@
       margin-bottom: 20px;
     }
 
-    /* Top Controls: Clock & Theme Toggle */
+    /* Top Right Controls */
     .header-controls {
+      position: absolute;
+      top: 0;
+      right: 0;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      gap: 10px;
     }
 
     .clock-display {
-      background: var(--fact-bg);
-      color: var(--heading-color);
+      background: var(--card-bg);
+      color: var(--primary-color);
       padding: 6px 12px;
       border-radius: 20px;
       font-size: 0.9em;
       font-weight: bold;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--primary-color);
       font-family: monospace, monospace;
+      transition: color 0.3s ease, border-color 0.3s ease;
     }
-
-    h1 { color: var(--heading-color); margin-bottom: 5px; }
-    .subtitle { color: var(--subtitle-color); font-style: italic; }
 
     .theme-toggle {
       background: var(--primary-color);
-      color: #fff;
+      color: var(--btn-text-color);
       border: none;
       padding: 8px 14px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 0.9em;
       font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
+
+    h1 { 
+      color: var(--heading-color); 
+      margin-top: 45px; 
+      margin-bottom: 5px; 
+    }
+
+    .subtitle { color: var(--subtitle-color); font-style: italic; }
 
     section {
       background: var(--card-bg);
@@ -93,6 +104,7 @@
       color: var(--primary-color);
       border-bottom: 1px solid var(--card-border);
       padding-bottom: 5px;
+      transition: color 0.3s ease;
     }
 
     ul { padding-left: 20px; }
@@ -111,12 +123,14 @@
       padding: 15px;
       border-radius: 4px;
       text-align: center;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
     }
 
     .fact-card h3, .weather-card h3 {
       margin: 0 0 5px 0;
-      color: var(--heading-color);
+      color: var(--primary-color);
       font-size: 1.2em;
+      transition: color 0.3s ease;
     }
 
     .gallery {
@@ -181,12 +195,14 @@
     }
 
     @media (max-width: 600px) {
+      .header-controls {
+        position: static;
+        justify-content: center;
+        margin-bottom: 10px;
+      }
+      h1 { margin-top: 0; }
       .facts-grid, .weather-grid { flex-direction: column; }
       .img-card { flex: 1 1 100%; }
-      .header-controls {
-        flex-direction: column-reverse;
-        gap: 10px;
-      }
     }
 
     footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: var(--subtitle-color); }
@@ -196,8 +212,8 @@
 
   <header>
     <div class="header-controls">
-      <!-- Live +4 Clock Display -->
-      <div class="clock-display" id="clock">⏰ 00:00:00 (GMT+4)</div>
+      <!-- Live Time Display (Top Right) -->
+      <div class="clock-display" id="clock">00:00:00</div>
       <button class="theme-toggle" id="themeToggle">🌙 Մուգ Ռեժիմ</button>
     </div>
     <h1>Բավրա Գյուղ</h1>
@@ -227,7 +243,7 @@
       </div>
     </section>
 
-    <!-- Climate & Weather Highlights -->
+    <!-- Climate Highlights -->
     <section>
       <h2>Կլիմայական Պայմաններ</h2>
       <p>Աշոցքի բարձրավանդակը հայտնի է իր յուրահատուկ բարձրլեռնային կլիմայով․</p>
@@ -300,7 +316,7 @@
   </footer>
 
   <script>
-    // Live GMT+4 Clock Script
+    // Pure Time Clock (HH:MM:SS)
     function updateClock() {
       const options = {
         timeZone: 'Asia/Yerevan',
@@ -310,15 +326,16 @@
         hour12: false
       };
       const currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
-      document.getElementById('clock').textContent = `⏰ ${currentTime} (GMT+4)`;
+      document.getElementById('clock').textContent = currentTime;
     }
     
     setInterval(updateClock, 1000);
-    updateClock(); // Initial run
+    updateClock();
 
-    // Theme Switcher
+    // Theme Switcher (Blue <-> Yellow Color Swap)
     const toggleBtn = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme');
+    
     if (savedTheme) {
       document.documentElement.setAttribute('data-theme', savedTheme);
       toggleBtn.textContent = savedTheme === 'dark' ? '☀️ Լուսավոր Ռեժիմ' : '🌙 Մուգ Ռեժիմ';
