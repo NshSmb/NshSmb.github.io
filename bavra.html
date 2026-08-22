@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Բավրա Գյուղ | Շիրակի Մարզ</title>
   <style>
-    /* Theme Variables */
     :root {
       --bg-color: #f4f4f9;
       --card-bg: #ffffff;
@@ -49,17 +48,9 @@
       margin-bottom: 20px;
     }
 
-    h1 {
-      color: var(--heading-color);
-      margin-bottom: 5px;
-    }
+    h1 { color: var(--heading-color); margin-bottom: 5px; }
+    .subtitle { color: var(--subtitle-color); font-style: italic; }
 
-    .subtitle {
-      color: var(--subtitle-color);
-      font-style: italic;
-    }
-
-    /* Dark Mode Toggle Button */
     .theme-toggle {
       position: absolute;
       top: 0;
@@ -72,11 +63,6 @@
       cursor: pointer;
       font-size: 0.9em;
       font-weight: bold;
-      transition: opacity 0.2s;
-    }
-
-    .theme-toggle:hover {
-      opacity: 0.9;
     }
 
     section {
@@ -85,7 +71,6 @@
       margin-bottom: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 4px var(--shadow);
-      transition: background-color 0.3s ease;
     }
 
     h2 {
@@ -94,22 +79,16 @@
       padding-bottom: 5px;
     }
 
-    ul {
-      padding-left: 20px;
-    }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
 
-    li {
-      margin-bottom: 8px;
-    }
-    
-    /* Fact Cards */
-    .facts-grid {
+    .facts-grid, .weather-grid {
       display: flex;
       gap: 15px;
       margin-top: 15px;
     }
 
-    .fact-card {
+    .fact-card, .weather-card {
       flex: 1;
       background: var(--fact-bg);
       border-left: 4px solid var(--primary-color);
@@ -118,19 +97,12 @@
       text-align: center;
     }
 
-    .fact-card h3 {
+    .fact-card h3, .weather-card h3 {
       margin: 0 0 5px 0;
       color: var(--heading-color);
-      font-size: 1.3em;
+      font-size: 1.2em;
     }
 
-    .fact-card p {
-      margin: 0;
-      font-size: 0.85em;
-      color: var(--text-color);
-    }
-
-    /* Gallery */
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -145,11 +117,15 @@
       border-radius: 6px;
       overflow: hidden;
       text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
     }
+
+    .img-card:hover { transform: translateY(-4px); }
 
     .img-card img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
       display: block;
     }
@@ -158,45 +134,43 @@
       padding: 8px;
       margin: 0;
       font-size: 0.9em;
-      color: var(--text-color);
     }
 
-    /* Map Responsive Container */
     .map-container {
-      position: relative;
       width: 100%;
-      height: 350px;
+      height: 300px;
       border-radius: 8px;
       overflow: hidden;
       margin-top: 15px;
       border: 1px solid var(--card-border);
     }
 
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 8px;
     }
 
     @media (max-width: 600px) {
-      .facts-grid {
-        flex-direction: column;
-      }
-      .img-card {
-        flex: 1 1 100%;
-      }
-      .theme-toggle {
-        position: static;
-        margin-bottom: 10px;
-      }
+      .facts-grid, .weather-grid { flex-direction: column; }
+      .img-card { flex: 1 1 100%; }
+      .theme-toggle { position: static; margin-bottom: 10px; }
     }
 
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 0.9em;
-      color: var(--subtitle-color);
-    }
+    footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: var(--subtitle-color); }
   </style>
 </head>
 <body>
@@ -217,11 +191,11 @@
         </div>
         <div class="fact-card">
           <h3>2,110 մ</h3>
-          <p>Բարձրություն ծովի մակերևույթից</p>
+          <p>Բարձրություն</p>
         </div>
         <div class="fact-card">
           <h3>1.7 կմ²</h3>
-          <p>Ընդհանուր տարածք</p>
+          <p>Մակերես</p>
         </div>
         <div class="fact-card">
           <h3>+374 312</h3>
@@ -230,25 +204,41 @@
       </div>
     </section>
 
+    <!-- Climate & Weather Highlights -->
+    <section>
+      <h2>Կլիմայական Պայմաններ</h2>
+      <p>Աշոցքի բարձրավանդակը հայտնի է իր յուրահատուկ բարձրլեռնային կլիմայով․</p>
+      <div class="weather-grid">
+        <div class="weather-card">
+          <h3>❄️ Ձմեռ</h3>
+          <p>Երկարատև և ձնառատ (-15°C-ից մինչև -30°C)</p>
+        </div>
+        <div class="weather-card">
+          <h3>☀️ Ամառ</h3>
+          <p>Զով և կարճատև (+18°C-ից +25°C)</p>
+        </div>
+        <div class="weather-card">
+          <h3>💨 Քամիներ</h3>
+          <p>Ուժեղ լեռնային քամիներ տարվա մեծ մասը</p>
+        </div>
+      </div>
+    </section>
+
     <section>
       <h2>Աշխարհագրություն և Դիրք</h2>
       <ul>
         <li><strong>Տեղադրություն․</strong> Գտնվում է Հայաստանի Շիրակի մարզում (Աշոցքի տարածաշրջան)՝ աշխարհագրական 41°07′09″ հս. լ. 43°48′33″ ավ. եր. կոորդինատներում։</li>
-        <li><strong>Հեռավորություններ․</strong> Գտնվում է Վրաստանի սահմանից ընդամենը 2 կմ, Գյումրիից՝ 50 կմ, իսկ Երևանից՝ 175 կմ հեռավորության վրա։</li>
-        <li><strong>Կլիմա․</strong> Աչքի է ընկնում բարձրլեռնային, խիստ ու ձնառատ ձմեռներով, ցածր ջերմաստիճանով և զով ամառներով։</li>
+        <li><strong>Հեռավորություններ․</strong> Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ, Երևանից՝ 175 կմ։</li>
       </ul>
     </section>
 
-    <!-- Google Maps Embed Section -->
     <section>
       <h2>Քարտեզ (Google Maps)</h2>
-      <p>Բավրա գյուղի աշխարհագրական դիրքը քարտեզի վրա․</p>
       <div class="map-container">
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
           allowfullscreen="" 
-          loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade">
+          loading="lazy">
         </iframe>
       </div>
     </section>
@@ -256,41 +246,39 @@
     <section>
       <h2>Տնտեսություն, Գյուղատնտեսություն և Սահման</h2>
       <ul>
-        <li><strong>Միջազգային մաքսակետ․</strong> Գյուղի մոտ է գտնվում Հայաստանը Վրաստանին կապող գլխավոր «Բավրա» պետական սահմանային անցակետը:</li>
-        <li><strong>Տնտեսական գործունեություն․</strong> Բնակչությունը հիմնականում զբաղվում է անասնապահությամբ, կաթնամթերքի արտադրությամբ և հողագործությամբ։</li>
-        <li><strong>Մշակաբույսեր և ձեռնարկություններ․</strong> Մշակվում են ցուրտ կլիմային դիմացկուն հացահատիկային մշակաբույսեր (ցորեն, հնդկաձավար) և զարգացած է մեղվաբուծությունը (տեղական ձեռնարկություններից է «Նոր Հատիկ»-ը)։</li>
+        <li><strong>Միջազգային մաքսակետ․</strong> Գյուղի մոտ է գտնվում «Բավրա» պետական սահմանային անցակետը:</li>
+        <li><strong>Գյուղատնտեսություն․</strong> Անասնապահություն, կաթնամթերք, մեղվաբուծություն և ցուրտ կլիմային դիմացկուն հացահատիկներ (ցորեն, հնդկաձավար):</li>
+        <li><strong>Տեղական ձեռնարկություններ․</strong> «Նոր Հատիկ» և այլ տեղական նախագծեր։</li>
       </ul>
     </section>
 
     <section>
-      <h2>Մշակույթ և Պատմամշակութային Ժառանգություն</h2>
-      <ul>
-        <li><strong>Սուրբ Նշան եկեղեցի․</strong> Գյուղի հոգևոր կենտրոնն է, որը պատկանում է Հայ Կաթողիկե եկեղեցուն։</li>
-        <li><strong>Համայնք․</strong> Բավրան ունի համախմբված համայնք՝ պահպանելով ուրույն ազգային, հոգևոր ու ավանդական արժեքները։</li>
-      </ul>
-
+      <h2>Լուսանկարներ (Սեղմեք մեծացնելու համար)</h2>
       <div class="gallery">
-        <div class="img-card">
+        <div class="img-card" onclick="openModal(this.querySelector('img').src)">
           <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA" alt="Սուրբ Նշան եկեղեցի">
-          <p>Սուրբ Նշան եկեղեցին Բավրայում</p>
+          <p>Սուրբ Նշան եկեղեցի</p>
         </div>
-        <div class="img-card">
+        <div class="img-card" onclick="openModal(this.querySelector('img').src)">
           <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRAlXhdyjoIJ9IzAtQc2H5UpTw66Fl-st7KS-m8S2MX_we5Ys6doxAVYV6np1lIPGQ1p60f8N955OWPH5k" alt="Բավրայի սահմանային անցակետ">
-          <p>Բավրայի սահմանային անցակետը</p>
+          <p>Բավրայի սահմանային անցակետ</p>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Image Lightbox Modal -->
+  <div id="imgModal" class="modal" onclick="closeModal()">
+    <img id="modalImg" src="" alt="Enlarged view">
+  </div>
+
   <footer>
     <p>&copy; 2026 Բավրայի մասին տեղեկատվական էջ</p>
   </footer>
 
-  <!-- Theme Toggle JavaScript -->
   <script>
+    // Theme Switcher
     const toggleBtn = document.getElementById('themeToggle');
-    
-    // Check if user has saved preference in localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       document.documentElement.setAttribute('data-theme', savedTheme);
@@ -299,18 +287,20 @@
 
     toggleBtn.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
-      let newTheme = 'dark';
-
-      if (currentTheme === 'dark') {
-        newTheme = 'light';
-        toggleBtn.textContent = '🌙 Մուգ Ռեժիմ';
-      } else {
-        toggleBtn.textContent = '☀️ Լուսավոր Ռեժիմ';
-      }
-
+      let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      toggleBtn.textContent = newTheme === 'dark' ? '☀️ Լուսավոր Ռեժիմ' : '🌙 Մուգ Ռեժիմ';
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });
+
+    // Image Modal Functions
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imgModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('imgModal').style.display = 'none';
+    }
   </script>
 
 </body>
