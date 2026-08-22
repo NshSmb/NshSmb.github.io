@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Bavra Village & Game Portal</title>
 
-  <!-- Google Search Console Verification Tags -->
   <meta name="google-site-verification" content="XsxHx6m0rEKXIkFuPx1kfXAYUuzOw-c5oDJPiqMQ1Yg" />
   <meta name="google-site-verification" content="8M9y0Vgoe-TP1JpAhWdcMWux43WLA2QJqt1JGW_IBVM" />
 
@@ -17,24 +16,370 @@
       --text-main: #ffffff;
       --text-sub: #b0bec5;
       --border-color: #333333;
-      --btn-bg: #2a2a2a;
-    }
-
-    /* Light Theme Overrides */
-    body.light-theme {
-      --bg-primary: #f4f6f8;
-      --bg-card: #ffffff;
-      --accent-color: #2e7d32;
-      --text-main: #121212;
-      --text-sub: #546e7a;
-      --border-color: #e0e0e0;
-      --btn-bg: #e8e8e8;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    header {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .widget-bar {
+      display: flex;
+      justify-content: space-around;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    .widget-item {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+    }
+
+    .widget-item span {
+      color: var(--text-main);
+      font-weight: bold;
+    }
+
+    main {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    /* Gallery Lightbox */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .gallery img:hover {
+      border-color: var(--accent-color);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+    }
+
+    /* Quiz */
+    .quiz-option {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      background: #2a2a2a;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 6px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .quiz-option:hover {
+      background: #383838;
+    }
+
+    /* Canvas Game Container */
+    #game-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    canvas {
+      background: #181824;
+      width: 100%;
+      max-width: 760px;
+      height: 360px;
+      display: block;
+    }
+
+    /* Touch Controls */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px;
+      background: #111;
+    }
+
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      background: #2a2a2a;
+      border: 2px solid var(--accent-color);
+      color: #fff;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+
+    .control-btn:active {
+      background: var(--accent-color);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bavra Portal</h1>
+    <div class="widget-bar">
+      <div class="widget-item">Time: <span id="live-clock">--:--:--</span></div>
+      <div class="widget-item">Bavra Temp: <span id="weather-temp">14°C</span></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>About Bavra</h2>
+      <p style="color: var(--text-sub); line-height: 1.5;">
+        Bavra is a high-altitude border village located in the Shirak Province of Armenia, known for its mountain climate, scenic landscapes, and resilient community spirit.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>2D Runner Game</h2>
+      <div id="game-container">
+        <canvas id="gameCanvas" width="760" height="360"></canvas>
+        <div class="controls">
+          <div style="display: flex; gap: 10px;">
+            <button class="control-btn" id="btn-left">◄</button>
+            <button class="control-btn" id="btn-right">►</button>
+          </div>
+          <button class="control-btn" id="btn-jump">▲</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Quick Quiz</h2>
+      <p id="quiz-question" style="margin-bottom: 10px;">In which Armenian region is Bavra located?</p>
+      <div id="quiz-options">
+        <button class="quiz-option" onclick="checkAnswer(false)">Syunik</button>
+        <button class="quiz-option" onclick="checkAnswer(true)">Shirak</button>
+        <button class="quiz-option" onclick="checkAnswer(false)">Lori</button>
+      </div>
+      <p id="quiz-result" style="margin-top: 10px; font-weight: bold;"></p>
+    </section>
+
+    <section class="card">
+      <h2>Photo Gallery</h2>
+      <div class="gallery">
+        <img src="https://picsum.photos/300/200?random=1" alt="Sunset View" onclick="openModal(this.src)" />
+        <img src="https://picsum.photos/300/200?random=2" alt="Mountains" onclick="openModal(this.src)" />
+        <img src="https://picsum.photos/300/200?random=3" alt="Nature" onclick="openModal(this.src)" />
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="imageModal" onclick="closeModal()">
+    <img id="modalImg" src="" alt="Enlarged View" />
+  </div>
+
+  <script>
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("live-clock").innerText = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Lightbox Modal
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("imageModal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+
+    // Quiz Check
+    function checkAnswer(isCorrect) {
+      const res = document.getElementById("quiz-result");
+      if (isCorrect) {
+        res.style.color = "#00e676";
+        res.innerText = "Correct! Bavra is located in Shirak.";
+      } else {
+        res.style.color = "#ff5252";
+        res.innerText = "Incorrect. Try again!";
+      }
+    }
+
+    // Canvas 2D Game Logic
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let player = {
+      x: 50,
+      y: 280,
+      width: 30,
+      height: 40,
+      dx: 0,
+      dy: 0,
+      speed: 4,
+      gravity: 0.5,
+      jumpPower: -10,
+      grounded: false
+    };
+
+    let keys = { left: false, right: false };
+
+    // Keyboard Listeners
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = true;
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = true;
+      if ((e.key === "ArrowUp" || e.key === "w" || e.key === " ") && player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = false;
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = false;
+    });
+
+    // Touch Button Listeners
+    const setupTouch = (id, startFn, endFn) => {
+      const btn = document.getElementById(id);
+      btn.addEventListener("touchstart", (e) => { e.preventDefault(); startFn(); });
+      btn.addEventListener("touchend", (e) => { e.preventDefault(); endFn(); });
+      btn.addEventListener("mousedown", startFn);
+      btn.addEventListener("mouseup", endFn);
+    };
+
+    setupTouch("btn-left", () => keys.left = true, () => keys.left = false);
+    setupTouch("btn-right", () => keys.right = true, () => keys.right = false);
+    setupTouch("btn-jump", () => {
+      if (player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
+      }
+    }, () => {});
+
+    function update() {
+      if (keys.right) player.dx = player.speed;
+      else if (keys.left) player.dx = -player.speed;
+      else player.dx = 0;
+
+      player.dy += player.gravity;
+      player.x += player.dx;
+      player.y += player.dy;
+
+      // Floor Collision
+      if (player.y + player.height >= 320) {
+        player.y = 320 - player.height;
+        player.dy = 0;
+        player.grounded = true;
+      }
+
+      // Canvas Boundary
+      if (player.x < 0) player.x = 0;
+      if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Ground
+      ctx.fillStyle = "#2e7d32";
+      ctx.fillRect(0, 320, canvas.width, 40);
+
+      // Draw Player
+      ctx.fillStyle = "#00e676";
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    loop();
+  </script>
+</body>
+</html>      padding: 0;
       user-select: none;
       -webkit-user-select: none;
     }
