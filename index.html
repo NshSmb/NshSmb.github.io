@@ -1149,6 +1149,1121 @@
   </script>
 
 </body>
+</html>      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px var(--shadow);
+      margin-bottom: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .brand-title {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-small {
+      background: var(--primary-color);
+      color: var(--btn-text-color);
+      border: none;
+      padding: 7px 13px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-small:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .clock-display {
+      background: var(--card-bg);
+      color: var(--primary-color);
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--primary-color);
+      font-family: monospace;
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 2px solid var(--heading-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: var(--heading-color);
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: var(--subtitle-color);
+      font-style: italic;
+    }
+
+    section {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      margin: 0;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .section-title::after {
+      content: "▼";
+      transition: transform 0.3s;
+    }
+
+    section.active .section-title::after {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    section.active .section-content {
+      max-height: 1500px;
+      padding: 15px 20px 20px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .grid-4,
+    .grid-3 {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .card {
+      flex: 1;
+      background: var(--fact-bg);
+      border-left: 4px solid var(--primary-color);
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0 0 5px;
+      color: var(--primary-color);
+    }
+
+    .gallery {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .img-card {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      overflow: hidden;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .img-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-card p {
+      padding: 8px;
+      margin: 0;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Nshan Quiz */
+
+    .quiz-question {
+      font-size: 1.05em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      margin: 7px 0;
+      background: var(--fact-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-color);
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95em;
+    }
+
+    .quiz-opt:hover {
+      opacity: 0.8;
+    }
+
+    .quiz-opt.selected {
+      border: 2px solid var(--primary-color);
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+    }
+
+    /* Analysis appears ONLY after all questions */
+
+    .final-analysis {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: var(--fact-bg);
+      border-left: 5px solid var(--primary-color);
+      border-radius: 5px;
+    }
+
+    .score {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .question-result {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+    }
+
+    .correct {
+      color: #27ae60;
+    }
+
+    .wrong {
+      color: #c0392b;
+    }
+
+    @media (max-width: 600px) {
+      .grid-4,
+      .grid-3,
+      .gallery {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <span
+      class="brand-title"
+      data-arm="📍 Բավրա Տեղեկատու"
+      data-eng="📍 Bavra Info">
+      📍 Բավրա Տեղեկատու
+    </span>
+
+    <div class="nav-controls">
+      <div class="clock-display" id="clock">00:00:00</div>
+
+      <button class="btn-small" id="langToggle">
+        ENG
+      </button>
+
+      <button class="btn-small" id="themeToggle">
+        🌙
+      </button>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1
+      data-arm="Բավրա Գյուղ"
+      data-eng="Bavra Village">
+      Բավրա Գյուղ
+    </h1>
+
+    <p
+      class="subtitle"
+      data-arm="Շիրակի մարզ, Աշոցքի համայնք"
+      data-eng="Shirak Region, Ashotsk Community">
+      Շիրակի մարզ, Աշոցքի համայնք
+    </p>
+  </header>
+
+  <main>
+
+    <!-- Key Facts -->
+    <section class="active">
+
+      <h2
+        class="section-title"
+        data-arm="Հիմնական Տվյալներ"
+        data-eng="Key Facts">
+        Հիմնական Տվյալներ
+      </h2>
+
+      <div class="section-content">
+
+        <div class="grid-4">
+
+          <div class="card">
+            <h3>652</h3>
+            <p data-arm="Բնակչություն" data-eng="Population">
+              Բնակչություն
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>2,150 մ</h3>
+            <p data-arm="Բարձրություն" data-eng="Elevation">
+              Բարձրություն
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>1.7 կմ²</h3>
+            <p data-arm="Մակերես" data-eng="Area">
+              Մակերես
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>+374 312</h3>
+            <p data-arm="Հեռ. Կոդ" data-eng="Phone Code">
+              Հեռ. Կոդ
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Weather -->
+    <section class="active">
+
+      <h2
+        class="section-title"
+        data-arm="Ընթացիկ Եղանակ (Ուղիղ)"
+        data-eng="Live Weather">
+        Ընթացիկ Եղանակ (Ուղիղ)
+      </h2>
+
+      <div class="section-content">
+
+        <div class="grid-3">
+
+          <div class="card">
+            <h3 id="liveTemp">-- °C</h3>
+            <p data-arm="Ջերմաստիճան" data-eng="Temperature">
+              Ջերմաստիճան
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 id="liveWind">-- կմ/ժ</h3>
+            <p data-arm="Քամի" data-eng="Wind Speed">
+              Քամի
+            </p>
+          </div>
+
+          <div class="card">
+            <h3 id="liveCond">Բեռնվում է...</h3>
+            <p data-arm="Վիճակ" data-eng="Condition">
+              Վիճակ
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Agriculture -->
+    <section>
+
+      <h2
+        class="section-title"
+        data-arm="Գյուղատնտեսություն և Արտադրություն"
+        data-eng="Agriculture & Produce">
+        Գյուղատնտեսություն և Արտադրություն
+      </h2>
+
+      <div class="section-content">
+
+        <div class="grid-3">
+
+          <div class="card">
+            <h3>🌾 Ցորեն և Հնդկացորեն</h3>
+            <p
+              data-arm="Բարձրլեռնային դիմացկուն հացահատիկներ"
+              data-eng="Cold-hardy high-altitude grains">
+              Բարձրլեռնային դիմացկուն հացահատիկներ
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>🐝 Մեղվաբուծություն</h3>
+            <p
+              data-arm="Մաքուր լեռնային ծաղկային մեղր"
+              data-eng="Pure alpine flower honey">
+              Մաքուր լեռնային ծաղկային մեղր
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>🏢 «Նոր Հատիկ»</h3>
+            <p
+              data-arm="Տեղական ձեռնարկատիրություն"
+              data-eng="Local agricultural enterprise">
+              Տեղական ձեռնարկատիրություն
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Geography -->
+    <section>
+
+      <h2
+        class="section-title"
+        data-arm="Աշխարհագրություն"
+        data-eng="Geography">
+        Աշխարհագրություն
+      </h2>
+
+      <div class="section-content">
+
+        <ul>
+          <li
+            data-arm="Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):"
+            data-eng="Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).">
+            Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում
+            (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):
+          </li>
+
+          <li
+            data-arm="Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:"
+            data-eng="Distance from Georgian border: 2 km, from Gyumri: 50 km.">
+            Հեռավորություն Վրաստանի սահմանից՝ 2 կմ,
+            Գյումրիից՝ 50 կմ:
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section>
+
+      <h2
+        class="section-title"
+        data-arm="Քարտեզ"
+        data-eng="Map">
+        Քարտեզ
+      </h2>
+
+      <div class="section-content">
+
+        <div class="map-container">
+
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s"
+            loading="lazy">
+          </iframe>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Photos -->
+    <section>
+
+      <h2
+        class="section-title"
+        data-arm="Լուսանկարներ"
+        data-eng="Photos">
+        Լուսանկարներ
+      </h2>
+
+      <div class="section-content">
+
+        <div class="gallery">
+
+          <div class="img-card">
+            <img
+              src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA"
+              alt="Սուրբ Նշան եկեղեցի">
+            <p>Սուրբ Նշան եկեղեցի</p>
+          </div>
+
+          <div class="img-card">
+            <img
+              src="https://lh3.googleusercontent.com/gps-proxy/ALd4DhFCt3P9XlXlFp-jF8A8K7l9x0V_7WjL0p7U7xX"
+              alt="Բավրայի մաքսակետ">
+            <p>Բավրայի մաքսակետ</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NSHAN -->
+    <section class="active">
+
+      <h2
+        class="section-title"
+        data-arm="Նշան"
+        data-eng="Nshan">
+        Նշան
+      </h2>
+
+      <div class="section-content">
+
+        <div id="quizQuestion" class="quiz-question"></div>
+
+        <div id="quizOptions"></div>
+
+        <div class="quiz-nav">
+
+          <button
+            class="btn-small"
+            id="prevQ"
+            onclick="changeQuestion(-1)">
+            ◄ Նախորդ
+          </button>
+
+          <button
+            class="btn-small"
+            id="nextQ"
+            onclick="changeQuestion(1)">
+            Հաջորդ ►
+          </button>
+
+        </div>
+
+        <!-- Final analysis -->
+        <div id="finalAnalysis" class="final-analysis">
+
+          <div id="score" class="score"></div>
+
+          <div id="analysisResults"></div>
+
+          <button
+            class="btn-small"
+            onclick="restartQuiz()"
+            style="margin-top:15px;">
+            🔄 Կրկին
+          </button>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+
+    /* =========================
+       ACCORDION
+    ========================= */
+
+    document.querySelectorAll('.section-title').forEach(title => {
+
+      title.addEventListener('click', () => {
+
+        title.parentElement.classList.toggle('active');
+
+      });
+
+    });
+
+
+    /* =========================
+       CLOCK
+    ========================= */
+
+    function updateClock() {
+
+      const opts = {
+        timeZone: 'Asia/Yerevan',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      };
+
+      document.getElementById('clock').textContent =
+        new Intl.DateTimeFormat('en-US', opts).format(new Date());
+
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    const toggleBtn = document.getElementById('themeToggle');
+
+    const savedTheme =
+      localStorage.getItem('theme') || 'light';
+
+    function applyTheme(theme) {
+
+      if (theme === 'dark') {
+
+        document.documentElement.setAttribute(
+          'data-theme',
+          'dark'
+        );
+
+        toggleBtn.textContent = '☀️';
+
+      } else {
+
+        document.documentElement.removeAttribute(
+          'data-theme'
+        );
+
+        toggleBtn.textContent = '🌙';
+
+      }
+
+    }
+
+    applyTheme(savedTheme);
+
+    toggleBtn.addEventListener('click', () => {
+
+      const current =
+        document.documentElement.getAttribute(
+          'data-theme'
+        ) === 'dark'
+          ? 'dark'
+          : 'light';
+
+      const next =
+        current === 'dark'
+          ? 'light'
+          : 'dark';
+
+      applyTheme(next);
+
+      localStorage.setItem('theme', next);
+
+    });
+
+
+    /* =========================
+       LANGUAGE
+    ========================= */
+
+    let currentLang = 'ARM';
+
+    const langBtn =
+      document.getElementById('langToggle');
+
+    langBtn.addEventListener('click', () => {
+
+      currentLang =
+        currentLang === 'ARM'
+          ? 'ENG'
+          : 'ARM';
+
+      langBtn.textContent =
+        currentLang === 'ARM'
+          ? 'ENG'
+          : 'ARM';
+
+      document
+        .querySelectorAll('[data-arm]')
+        .forEach(el => {
+
+          el.textContent =
+            currentLang === 'ARM'
+              ? el.getAttribute('data-arm')
+              : el.getAttribute('data-eng');
+
+        });
+
+      renderQuiz();
+
+    });
+
+
+    /* =========================
+       WEATHER
+    ========================= */
+
+    async function fetchWeather() {
+
+      try {
+
+        const res = await fetch(
+          'https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current_weather=true'
+        );
+
+        const data = await res.json();
+
+        const w = data.current_weather;
+
+        document.getElementById('liveTemp')
+          .textContent =
+          `${w.temperature} °C`;
+
+        document.getElementById('liveWind')
+          .textContent =
+          `${w.windspeed} km/h`;
+
+        let condition;
+
+        if (w.weathercode === 0) {
+          condition =
+            currentLang === 'ARM'
+              ? '☀️ Պարզ'
+              : '☀️ Clear';
+        } else {
+          condition =
+            currentLang === 'ARM'
+              ? '☁️ Ամպամած'
+              : '☁️ Cloudy';
+        }
+
+        document.getElementById('liveCond')
+          .textContent = condition;
+
+      } catch (error) {
+
+        document.getElementById('liveCond')
+          .textContent =
+          currentLang === 'ARM'
+            ? 'Անհասանելի'
+            : 'Unavailable';
+
+      }
+
+    }
+
+    fetchWeather();
+
+
+    /* =========================
+       NSHAN QUIZ
+    ========================= */
+
+    const quizData = [
+
+      {
+        questionArm:
+          "1. Որքա՞ն է Բավրայի բարձրությունը ծովի մակերևույթից?",
+
+        questionEng:
+          "1. What is Bavra's elevation above sea level?",
+
+        optionsArm:
+          ["1,800 մ", "2,150 մ", "2,500 մ"],
+
+        optionsEng:
+          ["1,800 m", "2,150 m", "2,500 m"],
+
+        correct: 1,
+
+        analysisArm:
+          "Բավրան գտնվում է մոտ 2,150 մետր բարձրության վրա։",
+
+        analysisEng:
+          "Bavra is located at about 2,150 meters above sea level."
+      },
+
+      {
+        questionArm:
+          "2. Ո՞ր մարզում է գտնվում Բավրա գյուղը?",
+
+        questionEng:
+          "2. Which region is Bavra located in?",
+
+        optionsArm:
+          ["Լոռի", "Շիրակ", "Սյունիք"],
+
+        optionsEng:
+          ["Lori", "Shirak", "Syunik"],
+
+        correct: 1,
+
+        analysisArm:
+          "Բավրան գտնվում է Հայաստանի Շիրակի մարզում՝ Աշոցքի համայնքում։",
+
+        analysisEng:
+          "Bavra is located in Armenia's Shirak region, within Ashotsk Community."
+      },
+
+      {
+        questionArm:
+          "3. Ո՞ր երկրի սահմանին է մոտ գտնվում Բավրայի մաքսակետը?",
+
+        questionEng:
+          "3. Which country's border is the Bavra checkpoint near?",
+
+        optionsArm:
+          ["Վրաստան", "Իրան", "Թուրքիա"],
+
+        optionsEng:
+          ["Georgia", "Iran", "Turkey"],
+
+        correct: 0,
+
+        analysisArm:
+          "Բավրայի անցակետը գտնվում է Վրաստանի սահմանին մոտ։",
+
+        analysisEng:
+          "The Bavra checkpoint is located near the Georgian border."
+      }
+
+    ];
+
+
+    let currentQ = 0;
+
+    let answers = new Array(
+      quizData.length
+    ).fill(null);
+
+
+    /* =========================
+       RENDER QUESTION
+    ========================= */
+
+    function renderQuiz() {
+
+      const q = quizData[currentQ];
+
+      const question =
+        currentLang === 'ARM'
+          ? q.questionArm
+          : q.questionEng;
+
+      document.getElementById(
+        'quizQuestion'
+      ).textContent = question;
+
+
+      const options =
+        currentLang === 'ARM'
+          ? q.optionsArm
+          : q.optionsEng;
+
+
+      const container =
+        document.getElementById(
+          'quizOptions'
+        );
+
+      container.innerHTML = '';
+
+
+      options.forEach((option, index) => {
+
+        const button =
+          document.createElement('button');
+
+        button.className = 'quiz-opt';
+
+        button.textContent = option;
+
+        if (answers[currentQ] === index) {
+          button.classList.add('selected');
+        }
+
+        button.onclick = () => {
+
+          answers[currentQ] = index;
+
+          renderQuiz();
+
+        };
+
+        container.appendChild(button);
+
+      });
+
+
+      document.getElementById('prevQ')
+        .disabled = currentQ === 0;
+
+
+      document.getElementById('nextQ')
+        .disabled = answers[currentQ] === null;
+
+    }
+
+
+    /* =========================
+       NEXT / PREVIOUS
+    ========================= */
+
+    function changeQuestion(direction) {
+
+      if (direction === 1) {
+
+        if (answers[currentQ] === null) {
+
+          alert(
+            currentLang === 'ARM'
+              ? 'Ընտրեք պատասխան։'
+              : 'Please select an answer.'
+          );
+
+          return;
+
+        }
+
+      }
+
+      currentQ += direction;
+
+
+      if (currentQ >= quizData.length) {
+
+        showFinalAnalysis();
+
+        return;
+
+      }
+
+
+      renderQuiz();
+
+    }
+
+
+    /* =========================
+       FINAL ANALYSIS
+    ========================= */
+
+    function showFinalAnalysis() {
+
+      let score = 0;
+
+      const results =
+        document.getElementById(
+          'analysisResults'
+        );
+
+      results.innerHTML = '';
+
+
+      quizData.forEach((q, index) => {
+
+        const userAnswer =
+          answers[index];
+
+        const isCorrect =
+          userAnswer === q.correct;
+
+        if (isCorrect) {
+          score++;
+        }
+
+
+        const div =
+          document.createElement('div');
+
+        div.className =
+          'question-result';
+
+
+        const questionText =
+          currentLang === 'ARM'
+            ? q.questionArm
+            : q.questionEng;
+
+        const analysisText =
+          currentLang === 'ARM'
+            ? q.analysisArm
+            : q.analysisEng;
+
+
+        div.innerHTML = `
+
+          <strong>${questionText}</strong>
+
+          <p class="${isCorrect ? 'correct' : 'wrong'}">
+
+            ${
+              isCorrect
+                ? '✅ ' +
+                  (currentLang === 'ARM'
+                    ? 'Ճիշտ պատասխան'
+                    : 'Correct answer')
+                : '❌ ' +
+                  (currentLang === 'ARM'
+                    ? 'Սխալ պատասխան'
+                    : 'Wrong answer')
+            }
+
+          </p>
+
+          <p>
+            ${
+              currentLang === 'ARM'
+                ? 'Վերլուծություն'
+                : 'Analysis'
+            }:
+            ${analysisText}
+          </p>
+
+        `;
+
+        results.appendChild(div);
+
+      });
+
+
+      document.getElementById(
+        'score'
+      ).textContent =
+
+        currentLang === 'ARM'
+
+          ? `🏆 Արդյունք՝ ${score}/${quizData.length}`
+
+          : `🏆 Score: ${score}/${quizData.length}`;
+
+
+      document.getElementById(
+        'finalAnalysis'
+      ).style.display = 'block';
+
+
+      document.getElementById(
+        'quizQuestion'
+      ).style.display = 'none';
+
+
+      document.getElementById(
+        'quizOptions'
+      ).style.display = 'none';
+
+
+      document.querySelector(
+        '.quiz-nav'
+      ).style.display = 'none';
+
+    }
+
+
+    /* =========================
+       RESTART
+    ========================= */
+
+    function restartQuiz() {
+
+      currentQ = 0;
+
+      answers =
+        new Array(
+          quizData.length
+        ).fill(null);
+
+
+      document.getElementById(
+        'finalAnalysis'
+      ).style.display = 'none';
+
+
+      document.getElementById(
+        'quizQuestion'
+      ).style.display = 'block';
+
+
+      document.getElementById(
+        'quizOptions'
+      ).style.display = 'block';
+
+
+      document.querySelector(
+        '.quiz-nav'
+      ).style.display = 'flex';
+
+
+      renderQuiz();
+
+    }
+
+
+    renderQuiz();
+
+  </script>
+
+</body>
 </html>      --card-border: #ddd;
       --shadow: rgba(0, 0, 0, 0.1);
       --btn-text-color: #ffffff;
