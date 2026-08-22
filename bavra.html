@@ -48,13 +48,29 @@
       margin-bottom: 20px;
     }
 
+    /* Top Controls: Clock & Theme Toggle */
+    .header-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .clock-display {
+      background: var(--fact-bg);
+      color: var(--heading-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+      border: 1px solid var(--card-border);
+      font-family: monospace, monospace;
+    }
+
     h1 { color: var(--heading-color); margin-bottom: 5px; }
     .subtitle { color: var(--subtitle-color); font-style: italic; }
 
     .theme-toggle {
-      position: absolute;
-      top: 0;
-      right: 0;
       background: var(--primary-color);
       color: #fff;
       border: none;
@@ -167,7 +183,10 @@
     @media (max-width: 600px) {
       .facts-grid, .weather-grid { flex-direction: column; }
       .img-card { flex: 1 1 100%; }
-      .theme-toggle { position: static; margin-bottom: 10px; }
+      .header-controls {
+        flex-direction: column-reverse;
+        gap: 10px;
+      }
     }
 
     footer { text-align: center; margin-top: 20px; font-size: 0.9em; color: var(--subtitle-color); }
@@ -176,7 +195,11 @@
 <body>
 
   <header>
-    <button class="theme-toggle" id="themeToggle">🌙 Մուգ Ռեժիմ</button>
+    <div class="header-controls">
+      <!-- Live +4 Clock Display -->
+      <div class="clock-display" id="clock">⏰ 00:00:00 (GMT+4)</div>
+      <button class="theme-toggle" id="themeToggle">🌙 Մուգ Ռեժիմ</button>
+    </div>
     <h1>Բավրա Գյուղ</h1>
     <p class="subtitle">Շիրակի մարզ, Աշոցքի համայնք</p>
   </header>
@@ -277,6 +300,22 @@
   </footer>
 
   <script>
+    // Live GMT+4 Clock Script
+    function updateClock() {
+      const options = {
+        timeZone: 'Asia/Yerevan',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      };
+      const currentTime = new Intl.DateTimeFormat('en-US', options).format(new Date());
+      document.getElementById('clock').textContent = `⏰ ${currentTime} (GMT+4)`;
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock(); // Initial run
+
     // Theme Switcher
     const toggleBtn = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('theme');
