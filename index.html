@@ -1,1044 +1,471 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Բավրա Գյուղ | Bavra Village</title>
 
-  <title>Բավրա Գյուղ | Bavra Village, Armenia</title>
-
-  <style>
-    :root {
-      --bg-color: #f4f4f9;
-      --card-bg: #ffffff;
-      --text-color: #333333;
-      --heading-color: #2c3e50;
-      --primary-color: #2980b9;
-      --subtitle-color: #7f8c8d;
-      --fact-bg: #eef7fc;
-      --card-border: #ddd;
-      --shadow: rgba(0, 0, 0, 0.1);
-      --btn-text-color: #ffffff;
-    }
-
-    [data-theme="dark"] {
-      --bg-color: #121212;
-      --card-bg: #1e1e1e;
-      --text-color: #e0e0e0;
-      --heading-color: #ecf0f1;
-      --primary-color: #f1c40f;
-      --subtitle-color: #bdc3c7;
-      --fact-bg: #2a2a1a;
-      --card-border: #444;
-      --shadow: rgba(0, 0, 0, 0.5);
-      --btn-text-color: #121212;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card-bg);
-      padding: 10px 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow);
-      margin-bottom: 20px;
-      border: 1px solid var(--card-border);
-    }
-
-    .brand-title {
-      color: var(--primary-color);
-      font-weight: bold;
-    }
-
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-small {
-      background: var(--primary-color);
-      color: var(--btn-text-color);
-      border: none;
-      padding: 7px 13px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: opacity 0.2s, transform 0.1s;
-    }
-
-    .btn-small:hover:not(:disabled) {
-      opacity: 0.85;
-    }
-
-    .btn-small:active:not(:disabled) {
-      transform: scale(0.97);
-    }
-
-    .btn-small:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .clock-display {
-      background: var(--card-bg);
-      color: var(--primary-color);
-      padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--primary-color);
-      font-family: monospace;
-    }
-
-    header {
-      text-align: center;
-      border-bottom: 2px solid var(--heading-color);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      color: var(--heading-color);
-      margin-bottom: 5px;
-    }
-
-    .subtitle {
-      color: var(--subtitle-color);
-      font-style: italic;
-    }
-
-    section {
-      background: var(--card-bg);
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow);
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-    }
-
-    .section-title {
-      color: var(--primary-color);
-      margin: 0;
-      padding: 18px 20px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-    }
-
-    .section-title::after {
-      content: "▼";
-      transition: transform 0.3s;
-    }
-
-    section.active .section-title::after {
-      transform: rotate(180deg);
-    }
-
-    .section-content {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 20px;
-      transition: max-height 0.4s ease, padding 0.4s ease;
-    }
-
-    section.active .section-content {
-      max-height: 2000px;
-      padding: 15px 20px 20px;
-      border-top: 1px solid var(--card-border);
-    }
-
-    .grid-4,
-    .grid-3 {
-      display: flex;
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .card {
-      flex: 1;
-      background: var(--fact-bg);
-      border-left: 4px solid var(--primary-color);
-      padding: 12px;
-      border-radius: 4px;
-      text-align: center;
-    }
-
-    .card h3 {
-      margin: 0 0 5px;
-      color: var(--primary-color);
-    }
-
-    .gallery {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    .img-card {
-      flex: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 6px;
-      overflow: hidden;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .img-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .img-card p {
-      padding: 8px;
-      margin: 0;
-    }
-
-    .map-container {
-      width: 100%;
-      height: 280px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* =========================
-       QUIZ
-    ========================= */
-
-    .quiz-question {
-      font-size: 1.05em;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .quiz-opt {
-      display: block;
-      width: 100%;
-      padding: 11px;
-      margin: 7px 0;
-      background: var(--fact-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-color);
-      border-radius: 5px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 0.95em;
-      transition: 0.2s;
-    }
-
-    .quiz-opt:hover {
-      opacity: 0.8;
-    }
-
-    .quiz-opt.selected {
-      border: 2px solid var(--primary-color);
-      background: var(--card-bg);
-    }
-
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 18px;
-      gap: 10px;
-    }
-
-    .final-analysis {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      background: var(--fact-bg);
-      border-left: 5px solid var(--primary-color);
-      border-radius: 5px;
-    }
-
-    .score {
-      font-size: 1.3em;
-      font-weight: bold;
-      color: var(--primary-color);
-      margin-bottom: 15px;
-    }
-
-    .question-result {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-    }
-
-    .correct {
-      color: #27ae60;
-      font-weight: bold;
-    }
-
-    .wrong {
-      color: #c0392b;
-      font-weight: bold;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      .grid-4,
-      .grid-3,
-      .gallery {
-        flex-direction: column;
-      }
-
-      nav {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .nav-controls {
-        width: 100%;
-        justify-content: flex-end;
-      }
-
-      .img-card img {
-        height: 200px;
-      }
-    }
-  </style>
+<style>
+:root{
+--bg:#f4f4f9;--card:#fff;--text:#333;--head:#2c3e50;
+--pri:#2980b9;--sub:#7f8c8d;--fact:#eef7fc;--border:#ddd;
+}
+[data-theme=dark]{
+--bg:#121212;--card:#1e1e1e;--text:#eee;--head:#fff;
+--pri:#f1c40f;--sub:#bbb;--fact:#2a2a1a;--border:#444;
+}
+*{box-sizing:border-box}
+body{
+max-width:800px;margin:auto;padding:15px;font-family:Arial;
+line-height:1.5;background:var(--bg);color:var(--text)
+}
+nav,section{
+background:var(--card);border:1px solid var(--border);
+box-shadow:0 2px 5px #0002;border-radius:8px
+}
+nav{
+display:flex;justify-content:space-between;align-items:center;
+padding:10px 15px;margin-bottom:20px
+}
+.brand{color:var(--pri);font-weight:bold}
+.controls{display:flex;gap:7px;align-items:center}
+button{
+border:0;border-radius:20px;padding:8px 13px;
+background:var(--pri);color:var(--card);font-weight:bold;cursor:pointer
+}
+button:disabled{opacity:.4;cursor:not-allowed}
+.clock{
+padding:4px 9px;border:1px solid var(--pri);
+border-radius:20px;color:var(--pri);font-family:monospace
+}
+header{text-align:center;border-bottom:2px solid var(--head);margin-bottom:20px}
+h1{color:var(--head);margin-bottom:3px}
+.subtitle{color:var(--sub);font-style:italic}
+section{margin-bottom:15px;overflow:hidden}
+.title{
+margin:0;padding:16px 18px;color:var(--pri);
+display:flex;justify-content:space-between;cursor:pointer
+}
+.title:after{content:"▼"}
+section:not(.open) .content{display:none}
+section.open .title:after{transform:rotate(180deg)}
+.content{padding:15px 18px;border-top:1px solid var(--border)}
+.grid{display:grid;gap:10px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{
+background:var(--fact);border-left:4px solid var(--pri);
+padding:12px;text-align:center;border-radius:5px
+}
+.card h3{margin:0;color:var(--pri)}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photo{border:1px solid var(--border);border-radius:6px;overflow:hidden;text-align:center}
+.photo img{width:100%;height:210px;object-fit:cover;display:block}
+.photo p{margin:0;padding:7px}
+.map{width:100%;height:280px;border:0;border-radius:7px}
+.option{
+display:block;width:100%;margin:7px 0;text-align:left;
+background:var(--fact);color:var(--text);border:1px solid var(--border)
+}
+.option.selected{outline:2px solid var(--pri)}
+.quiznav{display:flex;justify-content:space-between;margin-top:15px}
+.analysis{
+display:none;margin-top:20px;padding:15px;
+background:var(--fact);border-left:5px solid var(--pri)
+}
+.result{padding:10px;margin-top:8px;background:var(--card);border:1px solid var(--border)}
+.good{color:#27ae60}.bad{color:#c0392b}
+@media(max-width:600px){
+.g4,.g3,.gallery{grid-template-columns:1fr}
+nav{flex-wrap:wrap}.controls{margin-left:auto}
+}
+</style>
 </head>
 
 <body>
 
-  <!-- =========================
-       NAVIGATION
-  ========================= -->
-
-  <nav>
-
-    <span
-      class="brand-title"
-      data-arm="📍 Բավրա Տեղեկատու"
-      data-eng="📍 Bavra Info">
-      📍 Բավրա Տեղեկատու
-    </span>
-
-    <div class="nav-controls">
-
-      <div
-        class="clock-display"
-        id="clock">
-        00:00:00
-      </div>
-
-      <button
-        class="btn-small"
-        id="langToggle">
-        ENG
-      </button>
-
-      <button
-        class="btn-small"
-        id="themeToggle">
-        🌙
-      </button>
-
-    </div>
-
-  </nav>
-
-
-  <!-- =========================
-       HEADER
-  ========================= -->
-
-  <header>
-
-    <h1
-      data-arm="Բավրա Գյուղ"
-      data-eng="Bavra Village">
-      Բավրա Գյուղ
-    </h1>
-
-    <p
-      class="subtitle"
-      data-arm="Շիրակի մարզ, Աշոցքի համայնք"
-      data-eng="Shirak Region, Ashotsk Community">
-      Շիրակի մարզ, Աշոցքի համայնք
-    </p>
-
-  </header>
-
-
-  <main>
-
-    <!-- =========================
-         KEY FACTS
-    ========================= -->
-
-    <section class="active">
-
-      <h2
-        class="section-title"
-        data-arm="Հիմնական Տվյալներ"
-        data-eng="Key Facts">
-        Հիմնական Տվյալներ
-      </h2>
-
-      <div class="section-content">
-
-        <div class="grid-4">
-
-          <div class="card">
-            <h3>652</h3>
-            <p
-              data-arm="Բնակչություն"
-              data-eng="Population">
-              Բնակչություն
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>2,150 մ</h3>
-            <p
-              data-arm="Բարձրություն"
-              data-eng="Elevation">
-              Բարձրություն
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>1.7 կմ²</h3>
-            <p
-              data-arm="Մակերես"
-              data-eng="Area">
-              Մակերես
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>+374 312</h3>
-            <p
-              data-arm="Հեռ. Կոդ"
-              data-eng="Phone Code">
-              Հեռ. Կոդ
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         WEATHER
-    ========================= -->
-
-    <section class="active">
-
-      <h2
-        class="section-title"
-        data-arm="Ընթացիկ Եղանակ (Ուղիղ)"
-        data-eng="Live Weather">
-        Ընթացիկ Եղանակ (Ուղիղ)
-      </h2>
-
-      <div class="section-content">
-
-        <div class="grid-3">
-
-          <div class="card">
-
-            <h3 id="liveTemp">
-              -- °C
-            </h3>
-
-            <p
-              data-arm="Ջերմաստիճան"
-              data-eng="Temperature">
-              Ջերմաստիճան
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <h3 id="liveWind">
-              -- կմ/ժ
-            </h3>
-
-            <p
-              data-arm="Քամի"
-              data-eng="Wind Speed">
-              Քամի
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <h3 id="liveCond">
-              Բեռնվում է...
-            </h3>
-
-            <p
-              data-arm="Վիճակ"
-              data-eng="Condition">
-              Վիճակ
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         AGRICULTURE
-    ========================= -->
-
-    <section>
-
-      <h2
-        class="section-title"
-        data-arm="Գյուղատնտեսություն և Արտադրություն"
-        data-eng="Agriculture & Produce">
-        Գյուղատնտեսություն և Արտադրություն
-      </h2>
-
-      <div class="section-content">
-
-        <div class="grid-3">
-
-          <div class="card">
-
-            <h3>🌾 Ցորեն և Հնդկացորեն</h3>
-
-            <p
-              data-arm="Բարձրլեռնային դիմացկուն հացահատիկներ"
-              data-eng="Cold-hardy high-altitude grains">
-              Բարձրլեռնային դիմացկուն հացահատիկներ
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <h3>🐝 Մեղվաբուծություն</h3>
-
-            <p
-              data-arm="Մաքուր լեռնային ծաղկային մեղր"
-              data-eng="Pure alpine flower honey">
-              Մաքուր լեռնային ծաղկային մեղր
-            </p>
-
-          </div>
-
-
-          <div class="card">
-
-            <h3>🏢 «Նոր Հատիկ»</h3>
-
-            <p
-              data-arm="Տեղական ձեռնարկատիրություն"
-              data-eng="Local agricultural enterprise">
-              Տեղական ձեռնարկատիրություն
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         GEOGRAPHY
-    ========================= -->
-
-    <section>
-
-      <h2
-        class="section-title"
-        data-arm="Աշխարհագրություն"
-        data-eng="Geography">
-        Աշխարհագրություն
-      </h2>
-
-      <div class="section-content">
-
-        <ul>
-
-          <li
-            data-arm="Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):"
-            data-eng="Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).">
-            Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում
-            (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):
-          </li>
-
-          <li
-            data-arm="Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:"
-            data-eng="Distance from Georgian border: 2 km, from Gyumri: 50 km.">
-            Հեռավորություն Վրաստանի սահմանից՝ 2 կմ,
-            Գյումրիից՝ 50 կմ:
-          </li>
-
-        </ul>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         MAP
-    ========================= -->
-
-    <section>
-
-      <h2
-        class="section-title"
-        data-arm="Քարտեզ"
-        data-eng="Map">
-        Քարտեզ
-      </h2>
-
-      <div class="section-content">
-
-        <div class="map-container">
-
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s"
-            loading="lazy"
-            title="Bavra map">
-          </iframe>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PHOTOS
-    ========================= -->
-
-    <section>
-
-      <h2
-        class="section-title"
-        data-arm="Լուսանկարներ"
-        data-eng="Photos">
-        Լուսանկարներ
-      </h2>
-
-      <div class="section-content">
-
-        <div class="gallery">
-
-          <div class="img-card">
-
-            <img
-              src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA"
-              alt="Սուրբ Նշան եկեղեցի">
-
-            <p
-              data-arm="Սուրբ Նշան եկեղեցի"
-              data-eng="Surb Nshan Church">
-              Սուրբ Նշան եկեղեցի
-            </p>
-
-          </div>
-
-
-          <div class="img-card">
-
-            <img
-              src="https://lh3.googleusercontent.com/gps-proxy/ALd4DhFCt3P9XlXlFp-jF8A8K7l9x0V_7WjL0p7U7xX"
-              alt="Բավրայի մաքսակետ">
-
-            <p
-              data-arm="Բավրայի մաքսակետ"
-              data-eng="Bavra Checkpoint">
-              Բավրայի մաքսակետ
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         NSHAN QUIZ
-    ========================= -->
-
-    <section class="active">
-
-      <h2
-        class="section-title"
-        data-arm="Նշան"
-        data-eng="Nshan">
-        Նշան
-      </h2>
-
-      <div class="section-content">
-
-        <div
-          id="quizQuestion"
-          class="quiz-question">
-        </div>
-
-        <div id="quizOptions"></div>
-
-        <div class="quiz-nav">
-
-          <button
-            class="btn-small"
-            id="prevQ"
-            onclick="changeQuestion(-1)">
-            ◄ Նախորդ
-          </button>
-
-          <button
-            class="btn-small"
-            id="nextQ"
-            onclick="changeQuestion(1)">
-            Հաջորդ ►
-          </button>
-
-        </div>
-
-
-        <!-- FINAL ANALYSIS -->
-
-        <div
-          id="finalAnalysis"
-          class="final-analysis">
-
-          <div
-            id="score"
-            class="score">
-          </div>
-
-          <div
-            id="analysisResults">
-          </div>
-
-          <button
-            class="btn-small"
-            onclick="restartQuiz()"
-            style="margin-top:15px;">
-
-            🔄 Կրկին
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <script>
-
-    /* =========================
-       ACCORDION
-    ========================= */
-
-    document
-      .querySelectorAll('.section-title')
-      .forEach(title => {
-
-        title.addEventListener('click', () => {
-
-          title.parentElement
-            .classList
-            .toggle('active');
-
-        });
-
-      });
-
-
-    /* =========================
-       CLOCK
-    ========================= */
-
-    function updateClock() {
-
-      const opts = {
-        timeZone: 'Asia/Yerevan',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-      };
-
-      document.getElementById('clock')
-        .textContent =
-        new Intl.DateTimeFormat(
-          'en-US',
-          opts
-        ).format(new Date());
-
-    }
-
-    setInterval(updateClock, 1000);
-
-    updateClock();
-
-
-    /* =========================
-       DARK MODE
-    ========================= */
-
-    const toggleBtn =
-      document.getElementById(
-        'themeToggle'
-      );
-
-    const savedTheme =
-      localStorage.getItem('theme')
-      || 'light';
-
-
-    function applyTheme(theme) {
-
-      if (theme === 'dark') {
-
-        document.documentElement
-          .setAttribute(
-            'data-theme',
-            'dark'
-          );
-
-        toggleBtn.textContent = '☀️';
-
-      } else {
-
-        document.documentElement
-          .removeAttribute(
-            'data-theme'
-          );
-
-        toggleBtn.textContent = '🌙';
-
-      }
-
-    }
-
-
-    applyTheme(savedTheme);
-
-
-    toggleBtn.addEventListener(
-      'click',
-      () => {
-
-        const current =
-          document.documentElement
-            .getAttribute('data-theme')
-          === 'dark'
-            ? 'dark'
-            : 'light';
-
-        const next =
-          current === 'dark'
-            ? 'light'
-            : 'dark';
-
-        applyTheme(next);
-
-        localStorage.setItem(
-          'theme',
-          next
-        );
-
-      }
-    );
-
-
-    /* =========================
-       LANGUAGE
-    ========================= */
-
-    let currentLang = 'ARM';
-
-    const langBtn =
-      document.getElementById(
-        'langToggle'
-      );
-
-
-    langBtn.addEventListener(
-      'click',
-      () => {
-
-        currentLang =
-          currentLang === 'ARM'
-            ? 'ENG'
-            : 'ARM';
-
-        langBtn.textContent =
-          currentLang === 'ARM'
-            ? 'ENG'
-            : 'ARM';
-
-
-        document
-          .querySelectorAll('[data-arm]')
-          .forEach(el => {
-
-            el.textContent =
-              currentLang === 'ARM'
-                ? el.getAttribute('data-arm')
-                : el.getAttribute('data-eng');
-
-          });
-
-
-        renderQuiz();
-
-
-        const analysis =
-          document.getElementById(
-            'finalAnalysis'
-          );
-
-
-        if (
-          analysis.style.display
-          === 'block'
-        ) {
-
-          showFinalAnalysis();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       WEATHER
-    ========================= */
-
-    function getWeatherCondition(
-      weatherCode
-    ) {
-
-      const conditionsArm = {
-        0: '☀️ Պարզ',
-        1: '🌤️ Հիմնականում պարզ',
-        2: '⛅ Մասամբ ամպամած',
-        3: '☁️ Ամպամած',
-        45: '🌫️ Մառախուղ',
-        48: '🌫️ Մառախուղ',
-        51: '🌦️ Թույլ անձրև',
-        53: '🌦️ Անձրև',
-        55: '🌧️ Ուժեղ անձրև',
-        61: '🌧️ Անձրև',
-        63: '🌧️ Անձրև',
-        65: '🌧️ Ուժեղ անձրև',
-        71: '🌨️ Ձյուն',
-        73: '🌨️ Ձյուն',
-        75: '❄️ Ուժեղ ձյուն',
-        80: '🌦️ Անձրևային տեղումներ',
-        81: '🌧️ Անձրևային տեղումներ',
-        82: '🌧️ Ուժեղ տեղումներ',
-        95: '⛈️ Ամպրոպ',
-        96: '⛈️ Ամպրոպ և կարկուտ',
-        99: '⛈️ Ամպրոպ և կարկուտ'
-      };
-
-
-      const conditionsEng = {
-        0: '☀️ Clear',
-        1: '🌤️ Mostly clear',
-        2: '⛅ Partly cloudy',
-        3: '☁️ Cloudy',
-        45: '🌫️ Fog',
-        48: '🌫️ Fog',
-        51: '🌦️ Light drizzle',
-        53: '🌦️ Drizzle',
-        55: '🌧️ Heavy drizzle',
-        61: '🌧️ Rain',
-        63: '🌧️ Rain',
-        65: '🌧️ Heavy rain',
-        71: '🌨️ Snow',
-        73: '🌨️ Snow',
-        75: '❄️ Heavy snow',
-        80: '🌦️ Rain showers',
-        81: '🌧️ Rain showers',
-        82: '🌧️ Heavy showers',
-        95: '⛈️ Thunderstorm',
-        96: '⛈️ Thunderstorm and hail',
-        99: '⛈️ Thunderstorm and hail'
-      };
-
-
-      const conditions =
-        currentLang === 'ARM'
-          ? conditionsArm
-          : conditionsEng;
-
-
-      return conditions[weatherCode]
-        || (
-          currentLang === 'ARM'
-            ? 'Անհայտ'
-            : 'Unknown'
-        );
-
-    }
-
-
-    async function fetchWeather() {
-
-      try {
-
-        const res =
-          await fetch(
-            'https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current=temperatu
+<nav>
+<span class="brand" data-k="brand">📍 Բավրա Տեղեկատու</span>
+<div class="controls">
+<span class="clock" id="clock">00:00:00</span>
+<button id="lang">ENG</button>
+<button id="theme">🌙</button>
+</div>
+</nav>
+
+<header>
+<h1 data-k="title">Բավրա Գյուղ</h1>
+<p class="subtitle" data-k="subtitle">Շիրակի մարզ, Աշոցքի համայնք</p>
+</header>
+
+<main>
+
+<section class="open">
+<h2 class="title" data-k="facts">Հիմնական Տվյալներ</h2>
+<div class="content">
+<div class="grid g4">
+<div class="card"><h3>652</h3><span data-k="population">Բնակչություն</span></div>
+<div class="card"><h3>2,150 մ</h3><span data-k="elevation">Բարձրություն</span></div>
+<div class="card"><h3>1.7 կմ²</h3><span data-k="area">Մակերես</span></div>
+<div class="card"><h3>+374 312</h3><span data-k="phone">Հեռ. Կոդ</span></div>
+</div>
+</div>
+</section>
+
+<section class="open">
+<h2 class="title" data-k="weather">Ընթացիկ Եղանակ</h2>
+<div class="content">
+<div class="grid g3">
+<div class="card"><h3 id="temp">--</h3><span data-k="temperature">Ջերմաստիճան</span></div>
+<div class="card"><h3 id="wind">--</h3><span data-k="wind">Քամի</span></div>
+<div class="card"><h3 id="condition">...</h3><span data-k="condition">Վիճակ</span></div>
+</div>
+</div>
+</section>
+
+<section>
+<h2 class="title" data-k="agriculture">Գյուղատնտեսություն և Արտադրություն</h2>
+<div class="content">
+<div class="grid g3">
+
+<div class="card">
+<h3>🌾</h3>
+<b data-k="grainTitle">Ցորեն և Հնդկացորեն</b>
+<p data-k="grain">Բարձրլեռնային դիմացկուն հացահատիկներ</p>
+</div>
+
+<div class="card">
+<h3>🐝</h3>
+<b data-k="honeyTitle">Մեղվաբուծություն</b>
+<p data-k="honey">Մաքուր լեռնային ծաղկային մեղր</p>
+</div>
+
+<div class="card">
+<h3>🏢</h3>
+<b>«Նոր Հատիկ»</b>
+<p data-k="enterprise">Տեղական ձեռնարկատիրություն</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<section>
+<h2 class="title" data-k="geo">Աշխարհագրություն</h2>
+<div class="content">
+<ul>
+<li data-k="location">
+Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում
+(41°07′09″ հս. լ. 43°48′33″ ավ. եր.)։
+</li>
+<li data-k="distance">
+Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ։
+</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2 class="title" data-k="map">Քարտեզ</h2>
+<div class="content">
+<iframe class="map" loading="lazy"
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s">
+</iframe>
+</div>
+</section>
+
+<section>
+<h2 class="title" data-k="photos">Լուսանկարներ</h2>
+<div class="content">
+<div class="gallery">
+
+<div class="photo">
+<img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA"
+alt="Սուրբ Նշան եկեղեցի">
+<p data-k="church">Սուրբ Նշան եկեղեցի</p>
+</div>
+
+<div class="photo">
+<img src="https://lh3.googleusercontent.com/gps-proxy/ALd4DhFCt3P9XlXlFp-jF8A8K7l9x0V_7WjL0p7U7xX"
+alt="Բավրայի մաքսակետ">
+<p data-k="checkpoint">Բավրայի մաքսակետ</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<section class="open">
+<h2 class="title" data-k="nshan">Նշան</h2>
+<div class="content">
+
+<div id="question"></div>
+<div id="options"></div>
+
+<div class="quiznav">
+<button id="prev">◄</button>
+<button id="next">Հաջորդ ►</button>
+</div>
+
+<div class="analysis" id="analysis">
+<h3 id="score"></h3>
+<div id="results"></div>
+<button onclick="startQuiz()">🔄 Կրկին</button>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<script>
+const T={
+ARM:{
+brand:"📍 Բավրա Տեղեկատու",title:"Բավրա Գյուղ",
+subtitle:"Շիրակի մարզ, Աշոցքի համայնք",facts:"Հիմնական Տվյալներ",
+population:"Բնակչություն",elevation:"Բարձրություն",area:"Մակերես",
+phone:"Հեռ. Կոդ",weather:"Ընթացիկ Եղանակ",temperature:"Ջերմաստիճան",
+wind:"Քամի",condition:"Վիճակ",agriculture:"Գյուղատնտեսություն և Արտադրություն",
+grainTitle:"Ցորեն և Հնդկացորեն",grain:"Բարձրլեռնային դիմացկուն հացահատիկներ",
+honeyTitle:"Մեղվաբուծություն",honey:"Մաքուր լեռնային ծաղկային մեղր",
+enterprise:"Տեղական ձեռնարկատիրություն",geo:"Աշխարհագրություն",
+location:"Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.)։",
+distance:"Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ։",
+map:"Քարտեզ",photos:"Լուսանկարներ",church:"Սուրբ Նշան եկեղեցի",
+checkpoint:"Բավրայի մաքսակետ",nshan:"Նշան",next:"Հաջորդ ►",
+prev:"◄ Նախորդ",finish:"Ավարտել ✓",choose:"Ընտրեք պատասխան։",
+correct:"Ճիշտ",wrong:"Սխալ",restart:"🔄 Կրկին",unavailable:"Անհասանելի"
+},
+ENG:{
+brand:"📍 Bavra Info",title:"Bavra Village",
+subtitle:"Shirak Region, Ashotsk Community",facts:"Key Facts",
+population:"Population",elevation:"Elevation",area:"Area",
+phone:"Phone Code",weather:"Live Weather",temperature:"Temperature",
+wind:"Wind Speed",condition:"Condition",agriculture:"Agriculture & Produce",
+grainTitle:"Wheat & Buckwheat",grain:"Cold-hardy high-altitude grains",
+honeyTitle:"Beekeeping",honey:"Pure alpine flower honey",
+enterprise:"Local agricultural enterprise",geo:"Geography",
+location:"Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).",
+distance:"Distance from Georgian border: 2 km; from Gyumri: 50 km.",
+map:"Map",photos:"Photos",church:"Surb Nshan Church",
+checkpoint:"Bavra Checkpoint",nshan:"Nshan",next:"Next ►",
+prev:"◄ Previous",finish:"Finish ✓",choose:"Please select an answer.",
+correct:"Correct",wrong:"Wrong",restart:"🔄 Restart",unavailable:"Unavailable"
+}
+};
+
+let lang="ARM";
+
+function tr(){
+document.querySelectorAll("[data-k]").forEach(e=>{
+e.textContent=T[lang][e.dataset.k];
+});
+langBtn.textContent=lang==="ARM"?"ENG":"ARM";
+renderQuiz();
+}
+
+const langBtn=document.getElementById("lang");
+
+langBtn.onclick=()=>{
+lang=lang==="ARM"?"ENG":"ARM";
+tr();
+weather();
+};
+
+
+/* Accordion */
+document.querySelectorAll(".title").forEach(x=>{
+x.onclick=()=>x.parentElement.classList.toggle("open");
+});
+
+
+/* Clock */
+function clock(){
+document.getElementById("clock").textContent=
+new Intl.DateTimeFormat("en-US",{
+timeZone:"Asia/Yerevan",
+hour:"2-digit",minute:"2-digit",second:"2-digit",
+hour12:false
+}).format(new Date());
+}
+clock();
+setInterval(clock,1000);
+
+
+/* Dark mode */
+const theme=document.getElementById("theme");
+
+function setTheme(dark){
+document.documentElement.toggleAttribute("data-theme",dark);
+theme.textContent=dark?"☀️":"🌙";
+localStorage.theme=dark?"dark":"light";
+}
+
+setTheme(localStorage.theme==="dark");
+
+theme.onclick=()=>{
+setTheme(
+document.documentElement.getAttribute("data-theme")!=="dark"
+);
+};
+
+
+/* Weather */
+async function weather(){
+try{
+const r=await fetch(
+"https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current=temperature_2m,wind_speed_10m,weather_code"
+);
+const d=await r.json(),w=d.current;
+
+document.getElementById("temp").textContent=w.temperature_2m+" °C";
+document.getElementById("wind").textContent=w.wind_speed_10m+" km/h";
+
+const codes={
+0:["☀️ Պարզ","☀️ Clear"],
+1:["🌤️ Հիմնականում պարզ","🌤️ Mostly clear"],
+2:["⛅ Մասամբ ամպամած","⛅ Partly cloudy"],
+3:["☁️ Ամպամած","☁️ Cloudy"],
+45:["🌫️ Մառախուղ","🌫️ Fog"],
+51:["🌦️ Թույլ անձրև","🌦️ Light rain"],
+61:["🌧️ Անձրև","🌧️ Rain"],
+71:["🌨️ Ձյուն","🌨️ Snow"],
+80:["🌦️ Անձրև","🌦️ Rain"],
+95:["⛈️ Ամպրոպ","⛈️ Thunderstorm"]
+};
+
+document.getElementById("condition").textContent=
+(codes[w.weather_code]||[T[lang].unavailable,T[lang].unavailable])
+[lang==="ARM"?0:1];
+
+}catch{
+document.getElementById("condition").textContent=T[lang].unavailable;
+}
+}
+weather();
+
+
+/* Quiz */
+const quiz=[
+{
+q:["Որքա՞ն է Բավրայի բարձրությունը ծովի մակերևույթից?",
+"What is Bavra's elevation above sea level?"],
+o:[
+["1,800 մ","1,800 m"],
+["2,150 մ","2,150 m"],
+["2,500 մ","2,500 m"]
+],a:1
+},
+{
+q:["Ո՞ր մարզում է գտնվում Բավրա գյուղը?",
+"Which region is Bavra located in?"],
+o:[
+["Լոռի","Lori"],
+["Շիրակ","Shirak"],
+["Սյունիք","Syunik"]
+],a:1
+},
+{
+q:["Ո՞ր երկրի սահմանին է մոտ Բավրայի մաքսակետը?",
+"Which country's border is the Bavra checkpoint near?"],
+o:[
+["Վրաստան","Georgia"],
+["Իրան","Iran"],
+["Թուրքիա","Turkey"]
+],a:0
+}
+];
+
+let current=0,answers=[];
+
+function renderQuiz(){
+const q=quiz[current];
+const L=lang==="ARM"?0:1;
+
+document.getElementById("question").textContent=
+`${current+1}. ${q.q[L]}`;
+
+const box=document.getElementById("options");
+box.innerHTML="";
+
+q.o.forEach((o,i)=>{
+const b=document.createElement("button");
+b.className="option";
+b.textContent=o[L];
+
+if(answers[current]===i)b.classList.add("selected");
+
+b.onclick=()=>{
+answers[current]=i;
+renderQuiz();
+};
+
+box.appendChild(b);
+});
+
+prev.disabled=current===0;
+next.disabled=answers[current]===undefined;
+next.textContent=
+current===quiz.length-1?T[lang].finish:T[lang].next;
+}
+
+prev.onclick=()=>{
+if(current>0){current--;renderQuiz();}
+};
+
+next.onclick=()=>{
+if(answers[current]===undefined){
+alert(T[lang].choose);
+return;
+}
+
+if(current<quiz.length-1){
+current++;
+renderQuiz();
+}else{
+showResults();
+}
+};
+
+function showResults(){
+let score=0;
+
+quiz.forEach((q,i)=>{
+if(answers[i]===q.a)score++;
+});
+
+document.getElementById("score").textContent=
+`${score}/${quiz.length} — ${Math.round(score/quiz.length*100)}%`;
+
+const results=document.getElementById("results");
+results.innerHTML="";
+
+quiz.forEach((q,i)=>{
+const good=answers[i]===q.a;
+const div=document.createElement("div");
+div.className="result";
+
+div.innerHTML=
+`<b>${i+1}. ${q.q[lang==="ARM"?0:1]}</b>
+<p class="${good?"good":"bad"}">
+${good?"✓ "+T[lang].correct:"✗ "+T[lang].wrong}
+</p>`;
+
+results.appendChild(div);
+});
+
+document.getElementById("analysis").style.display="block";
+}
+
+function startQuiz(){
+current=0;
+answers=[];
+document.getElementById("analysis").style.display="none";
+renderQuiz();
+}
+
+startQuiz();
+</script>
+
+</body>
+</html>
