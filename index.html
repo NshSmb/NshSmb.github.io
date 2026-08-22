@@ -1,542 +1,469 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hy">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2D Parkour Game</title>
-    <style>
-        body {
-            margin: 0;
-            background: #1e1e1e;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-            font-family: sans-serif;
-        }
-        canvas {
-            background: #e0e0e0;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        .ui-panel {
-            margin-top: 15px;
-            background: #333;
-            padding: 10px 20px;
-            border-radius: 6px;
-        }
-        .ui-panel input {
-            width: 80px;
-            text-align: center;
-            text-transform: lowercase;
-            font-weight: bold;
-            margin: 0 10px 0 5px;
-            border: 1px solid #555;
-            background: #222;
-            color: #00ffcc;
-        }
-        #ctrl-power {
-            width: 30px;
-        }
-        .info-text {
-            margin-top: 8px;
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Ownership Verification Tag -->
+  <meta name="google-site-verification" content="XsxHx6m0rEKXIkFuPx1kfXAYUuzOw-c5oDJPiqMQ1Yg" />
+
+  <!-- SEO Meta Tags for Google Search -->
+  <title>Բավրա Գյուղ | Bavra Village, Armenia</title>
+  <meta name="description" content="Official informational page about Bavra village in Shirak region, Armenia. Population, 2150m elevation, live weather, border checkpoint, and local economy.">
+  <meta name="keywords" content="Bavra, Bavra Armenia, Bavra village, Shirak, Ashotsk, Bavra border, Բավրա, Բավրայի մաքսակետ, Շիրակ">
+  <meta name="author" content="Nshan Sumbulyan">
+  <link rel="canonical" href="https://nshsmb.github.io/bavra.html">
+
+  <!-- Alternate Language Tags -->
+  <link rel="alternate" hreflang="hy" href="https://nshsmb.github.io/bavra.html">
+  <link rel="alternate" hreflang="en" href="https://nshsmb.github.io/bavra.html">
+  <link rel="alternate" hreflang="x-default" href="https://nshsmb.github.io/bavra.html">
+
+  <!-- Social Media & Link Preview Tags -->
+  <meta property="og:title" content="Բավրա Գյուղ | Bavra Village">
+  <meta property="og:description" content="Explore Bavra village in Shirak, Armenia: live weather, altitude, facts, and photos.">
+  <meta property="og:url" content="https://nshsmb.github.io/bavra.html">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg-color: #f4f4f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --heading-color: #2c3e50;
+      --primary-color: #2980b9;
+      --subtitle-color: #7f8c8d;
+      --fact-bg: #eef7fc;
+      --card-border: #ddd;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --btn-text-color: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #e0e0e0;
+      --heading-color: #ecf0f1;
+      --primary-color: #f1c40f;
+      --subtitle-color: #bdc3c7;
+      --fact-bg: #2a2a1a;
+      --card-border: #444;
+      --shadow: rgba(0, 0, 0, 0.5);
+      --btn-text-color: #121212;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px var(--shadow);
+      margin-bottom: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .brand-title {
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-small {
+      background: var(--primary-color);
+      color: var(--btn-text-color);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85em;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .clock-display {
+      background: var(--card-bg);
+      color: var(--primary-color);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+      border: 1px solid var(--primary-color);
+      font-family: monospace;
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 2px solid var(--heading-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 { color: var(--heading-color); margin-bottom: 5px; }
+    .subtitle { color: var(--subtitle-color); font-style: italic; }
+
+    section {
+      background: var(--card-bg);
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      margin: 0;
+      padding: 18px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .section-title::after {
+      content: "▼";
+      font-size: 0.8em;
+      transition: transform 0.3s ease;
+    }
+
+    section.active .section-title::after {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+
+    section.active .section-content {
+      max-height: 1200px;
+      padding: 15px 20px 20px 20px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .grid-4, .grid-3 {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .card {
+      flex: 1;
+      background: var(--fact-bg);
+      border-left: 4px solid var(--primary-color);
+      padding: 12px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .card h3 {
+      margin: 0 0 5px 0;
+      color: var(--primary-color);
+      font-size: 1.1em;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .img-card {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      overflow: hidden;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .img-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-card p { padding: 8px; margin: 0; font-size: 0.9em; }
+
+    .map-container {
+      width: 100%;
+      height: 280px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+    /* Quiz Styling */
+    .quiz-q { margin-bottom: 15px; }
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      background: var(--fact-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-color);
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal img { max-width: 90%; max-height: 80vh; border-radius: 8px; }
+
+    @media (max-width: 600px) {
+      .grid-4, .grid-3, .gallery { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    
-    <div class="ui-panel">
-        <strong>Customize Controls:</strong>
-        <label>Left: <input type="text" id="ctrl-left" value="ArrowLeft"></label>
-        <label>Right: <input type="text" id="ctrl-right" value="ArrowRight"></label>
-        <label>Jump: <input type="text" id="ctrl-jump" value="ArrowUp"></label>
-        <label>Power: <input type="text" id="ctrl-power" value="v" maxlength="1"></label>
+  <!-- Top Navigation Bar -->
+  <nav>
+    <span class="brand-title" data-arm="📍 Բավրա Տեղեկատու" data-eng="📍 Bavra Info">📍 Բավրա Տեղեկատու</span>
+    <div class="nav-controls">
+      <div class="clock-display" id="clock">00:00:00</div>
+      <button class="btn-small" id="langToggle">ENG</button>
+      <button class="btn-small" id="themeToggle">🌙</button>
     </div>
-    <div class="info-text">Press <strong>R</strong> to Restart Level/Run</div>
+  </nav>
 
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+  <header>
+    <h1 id="siteTitle" data-arm="Բավրա Գյուղ" data-eng="Bavra Village">Բավրա Գյուղ</h1>
+    <p class="subtitle" id="siteSub" data-arm="Շիրակի մարզ, Աշոցքի համայնք" data-eng="Shirak Region, Ashotsk Community">Շիրակի մարզ, Աշոցքի համայնք</p>
+  </header>
 
-        let controls = { left: 'arrowleft', right: 'arrowright', jump: 'arrowup', power: 'v' };
-        
-        document.querySelectorAll('.ui-panel input').forEach(input => {
-            input.addEventListener('input', (e) => {
-                const action = e.target.id.split('-')[1];
-                controls[action] = e.target.value.toLowerCase();
-            });
-        });
+  <main>
+    <!-- Key Facts -->
+    <section class="active">
+      <h2 class="section-title" data-arm="Հիմնական Տվյալներ" data-eng="Key Facts">Հիմնական Տվյալներ</h2>
+      <div class="section-content">
+        <div class="grid-4">
+          <div class="card">
+            <h3>652</h3>
+            <p data-arm="Բնակչություն" data-eng="Population">Բնակչություն</p>
+          </div>
+          <div class="card">
+            <h3>2,150 մ</h3>
+            <p data-arm="Բարձրություն" data-eng="Elevation">Բարձրություն</p>
+          </div>
+          <div class="card">
+            <h3>1.7 կմ²</h3>
+            <p data-arm="Մակերես" data-eng="Area">Մակերես</p>
+          </div>
+          <div class="card">
+            <h3>+374 312</h3>
+            <p data-arm="Հեռ. Կոդ" data-eng="Phone Code">Հեռ. Կոդ</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        const keys = {};
+    <!-- Live Weather -->
+    <section class="active">
+      <h2 class="section-title" data-arm="Ընթացիկ Եղանակ (Ուղիղ)" data-eng="Live Weather">Ընթացիկ Եղանակ (Ուղիղ)</h2>
+      <div class="section-content">
+        <div class="grid-3">
+          <div class="card">
+            <h3 id="liveTemp">-- °C</h3>
+            <p data-arm="Ջերմաստիճան" data-eng="Temperature">Ջերմաստիճան</p>
+          </div>
+          <div class="card">
+            <h3 id="liveWind">-- կմ/ժ</h3>
+            <p data-arm="Քամի" data-eng="Wind Speed">Քամի</p>
+          </div>
+          <div class="card">
+            <h3 id="liveCond">Բեռնվում է...</h3>
+            <p data-arm="Վիճակ" data-eng="Condition">Վիճակ</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        window.addEventListener('keydown', (e) => { 
-            const key = e.key.toLowerCase();
+    <!-- Agriculture & Produce Spotlight -->
+    <section>
+      <h2 class="section-title" data-arm="Գյուղատնտեսություն և Արտադրություն" data-eng="Agriculture & Produce">Գյուղատնտեսություն և Արտադրություն</h2>
+      <div class="section-content">
+        <div class="grid-3">
+          <div class="card">
+            <h3>🌾 Ցորեն և Հնդկացորեն</h3>
+            <p data-arm="Բարձրլեռնային դիմացկուն հացահատիկներ" data-eng="Cold-hardy high-altitude grains">Բարձրլեռնային դիմացկուն հացահատիկներ</p>
+          </div>
+          <div class="card">
+            <h3>🐝 Մեղվաբուծություն</h3>
+            <p data-arm="Մաքուր լեռնային ծաղկային մեղր" data-eng="Pure alpine flower honey">Մաքուր լեռնային ծաղկային մեղր</p>
+          </div>
+          <div class="card">
+            <h3>🏢 «Նոր Հատիկ»</h3>
+            <p data-arm="Տեղական ձեռնարկատիրություն" data-eng="Local agricultural enterprise">Տեղական ձեռնարկատիրություն</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            if (key === 'r' && document.activeElement.tagName !== 'INPUT') {
-                restartGame();
-            }
+    <!-- Geography -->
+    <section>
+      <h2 class="section-title" data-arm="Աշխարհագրություն" data-eng="Geography">Աշխարհագրություն</h2>
+      <div class="section-content">
+        <ul>
+          <li data-arm="Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):" data-eng="Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).">Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):</li>
+          <li data-arm="Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:" data-eng="Distance from Georgian border: 2 km, from Gyumri: 50 km.">Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:</li>
+        </ul>
+      </div>
+    </section>
 
-            if (key === controls.jump && !keys[controls.jump] && document.activeElement.tagName !== 'INPUT') {
-                handleJumpPress();
-            }
-            keys[key] = true; 
-        });
-        window.addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false; });
+    <!-- Google Map -->
+    <section>
+      <h2 class="section-title" data-arm="Քարտեզ" data-eng="Map">Քարտեզ</h2>
+      <div class="section-content">
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
 
-        const player = {
-            x: 30, y: 300,
-            w: 20, h: 40,
-            vx: 0, vy: 0,
-            speed: 0.8, maxSpeed: 6,
-            jumpPower: -10,
-            grounded: false,
-            wallSlide: false,
-            wallDir: 0,
-            jumpsLeft: 2
-        };
+    <!-- Photos -->
+    <section>
+      <h2 class="section-title" data-arm="Լուսանկարներ" data-eng="Photos">Լուսանկարներ</h2>
+      <div class="section-content">
+        <div class="gallery">
+          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
+            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA" alt="Սուրբ Նշան եկեղեցի">
+            <p data-arm="Սուրբ Նշան եկեղեցի" data-eng="Surb Nshan Church">Սուրբ Նշան եկեղեցի</p>
+          </div>
+          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
+            <img src="https://lh3.googleusercontent.com/gps-proxy/ALd4DhFCt3P9XlXlFp-jF8A8K7l9x0V_7WjL0p7U7xX" alt="Բավրայի մաքսակետ">
+            <p data-arm="Բավրայի մաքսակետ" data-eng="Bavra Border Checkpoint">Բավրայի մաքսակետ</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        const gravity = 0.2;
-        const friction = 0.85;
+    <!-- Mini Quiz -->
+    <section>
+      <h2 class="section-title" data-arm="Գիտելիքի Ստուգում (Վիկտորինա)" data-eng="Village Quiz">Գիտելիքի Ստուգում (Վիկտորինա)</h2>
+      <div class="section-content">
+        <div class="quiz-q">
+          <p><strong>1. Որքա՞ն է Բավրայի բարձրությունը ծովի մակերևույթից:</strong></p>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">1,800 մ</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, true)">2,150 մ</button>
+          <button class="quiz-opt" onclick="checkQuiz(this, false)">2,500 մ</button>
+        </div>
+        <div id="quizResult" style="font-weight: bold; margin-top: 10px;"></div>
+      </div>
+    </section>
+  </main>
 
-        const levels = [
-            // LEVEL 1
-            {
-                platforms: [
-                    { x: 0, y: 380, w: 800, h: 20 },
-                    { x: 220, y: 300, w: 100, h: 20 },
-                    { x: 400, y: 220, w: 100, h: 20 },
-                    { x: 580, y: 140, w: 140, h: 20 },
-                    { x: 150, y: 180, w: 30, h: 120 }
-                ],
-                hazards: [
-                    { x: 330, y: 365, w: 120, h: 15 },
-                    { x: 0, y: 0, w: 800, h: 20 }
-                ],
-                coins: [
-                    { x: 270, y: 260, r: 15 },
-                    { x: 450, y: 180, r: 15 },
-                    { x: 650, y: 100, r: 15 }
-                ],
-                goal: { x: 670, y: 80, w: 30, h: 60 }
-            },
-            // LEVEL 2
-            {
-                platforms: [
-                    { x: 0, y: 380, w: 180, h: 20 },
-                    { x: 620, y: 380, w: 180, h: 20 },
-                    { x: 230, y: 180, w: 40, h: 200 },
-                    { x: 450, y: 120, w: 40, h: 200 },
-                    { x: 50, y: 200, w: 90, h: 20 },
-                    { x: 540, y: 140, w: 100, h: 20 }
-                ],
-                hazards: [
-                    { x: 180, y: 385, w: 440, h: 15 },
-                    { x: 0, y: 0, w: 800, h: 20 }
-                ],
-                coins: [
-                    { x: 95, y: 160, r: 15 },
-                    { x: 250, y: 120, r: 15 },
-                    { x: 590, y: 100, r: 15 }
-                ],
-                goal: { x: 590, y: 80, w: 30, h: 60 }
-            },
-            // LEVEL 3
-            {
-                platforms: [
-                    { x: 0, y: 380, w: 100, h: 20 },
-                    { x: 160, y: 320, w: 50, h: 20 },
-                    { x: 270, y: 250, w: 50, h: 20 },
-                    { x: 390, y: 180, w: 50, h: 20 },
-                    { x: 520, y: 120, w: 50, h: 20 },
-                    { x: 650, y: 120, w: 120, h: 20 }
-                ],
-                hazards: [
-                    { x: 100, y: 380, w: 700, h: 20 },
-                    { x: 0, y: 0, w: 800, h: 20 }
-                ],
-                coins: [
-                    { x: 185, y: 280, r: 15 },
-                    { x: 295, y: 210, r: 15 },
-                    { x: 415, y: 140, r: 15 },
-                    { x: 545, y: 80, r: 15 }
-                ],
-                goal: { x: 710, y: 60, w: 30, h: 60 }
-            },
-            // LEVEL 4
-            {
-                platforms: [
-                    { x: 0, y: 380, w: 140, h: 20 },
-                    { x: 190, y: 310, w: 30, h: 90 },
-                    { x: 300, y: 230, w: 30, h: 90 },
-                    { x: 410, y: 150, w: 30, h: 90 },
-                    { x: 520, y: 200, w: 90, h: 20 },
-                    { x: 660, y: 130, w: 120, h: 20 }
-                ],
-                hazards: [
-                    { x: 140, y: 385, w: 660, h: 15 },
-                    { x: 0, y: 0, w: 800, h: 20 },
-                    { x: 340, y: 110, w: 100, h: 15 }
-                ],
-                coins: [
-                    { x: 205, y: 260, r: 15 },
-                    { x: 315, y: 180, r: 15 },
-                    { x: 565, y: 160, r: 15 },
-                    { x: 710, y: 90, r: 15 }
-                ],
-                goal: { x: 720, y: 70, w: 30, h: 60 }
-            },
-            // LEVEL 5
-            {
-                platforms: [
-                    { x: 0, y: 380, w: 110, h: 20 },
-                    { x: 170, y: 310, w: 60, h: 20 },
-                    { x: 290, y: 240, w: 60, h: 20 },
-                    { x: 410, y: 170, w: 60, h: 20 },
-                    { x: 540, y: 230, w: 60, h: 20 },
-                    { x: 670, y: 150, w: 120, h: 20 }
-                ],
-                hazards: [
-                    { x: 110, y: 385, w: 690, h: 15 },
-                    { x: 0, y: 0, w: 800, h: 20 },
-                    { x: 220, y: 140, w: 160, h: 15 },
-                    { x: 480, y: 295, w: 120, h: 15 }
-                ],
-                coins: [
-                    { x: 200, y: 270, r: 15 },
-                    { x: 320, y: 200, r: 15 },
-                    { x: 440, y: 130, r: 15 },
-                    { x: 570, y: 190, r: 15 },
-                    { x: 720, y: 110, r: 15 }
-                ],
-                goal: { x: 730, y: 90, w: 30, h: 60 }
-            }
-        ];
+  <div id="imgModal" class="modal" onclick="closeModal()">
+    <img id="modalImg" src="" alt="View">
+  </div>
 
-        let currentLevel = 0;
-        let activePlatforms = [];
-        let activeHazards = [];
-        let activeCoins = [];
-        let activeGoal = {};
-        let score = 0;
-        let deaths = 0;
-        let gameWon = false;
+  <script>
+    // Accordion Toggle
+    document.querySelectorAll('.section-title').forEach(t => {
+      t.addEventListener('click', () => t.parentElement.classList.toggle('active'));
+    });
 
-        let startTime = Date.now();
-        let levelStartTime = Date.now();
-        let elapsedTime = 0;
+    // Time Clock (HH:MM:SS)
+    function updateClock() {
+      const opts = { timeZone: 'Asia/Yerevan', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      document.getElementById('clock').textContent = new Intl.DateTimeFormat('en-US', opts).format(new Date());
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-        let levelSplits = [];
-        let splitPopup = { text: '', timer: 0 };
+    // Dark/Light Theme Switcher
+    const toggleBtn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    toggleBtn.addEventListener('click', () => {
+      let cur = document.documentElement.getAttribute('data-theme');
+      let next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
 
-        let pbTime = localStorage.getItem('parkour_pbTime');
-        let pbDeaths = localStorage.getItem('parkour_pbDeaths');
-        let isNewPB = false;
+    // Language Switcher (ARM / ENG)
+    let currentLang = 'ARM';
+    const langBtn = document.getElementById('langToggle');
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'ARM' ? 'ENG' : 'ARM';
+      langBtn.textContent = currentLang === 'ARM' ? 'ENG' : 'ARM';
+      
+      document.querySelectorAll('[data-arm]').forEach(el => {
+        el.textContent = currentLang === 'ARM' ? el.getAttribute('data-arm') : el.getAttribute('data-eng');
+      });
+    });
 
-        function loadLevel(index) {
-            if (index >= levels.length) {
-                gameWon = true;
-                checkPersonalBests();
-                return;
-            }
-            const lvl = levels[index];
-            activePlatforms = lvl.platforms;
-            activeHazards = lvl.hazards;
-            activeGoal = lvl.goal;
-            activeCoins = lvl.coins.map(c => ({ ...c, collected: false }));
-            
-            levelStartTime = Date.now();
-            player.x = 30;
-            player.y = 300;
-            player.vx = 0;
-            player.vy = 0;
-        }
+    // Fetch Real-time Weather (Open-Meteo API)
+    async function fetchWeather() {
+      try {
+        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current_weather=true');
+        const data = await res.json();
+        const w = data.current_weather;
+        document.getElementById('liveTemp').textContent = `${w.temperature} °C`;
+        document.getElementById('liveWind').textContent = `${w.windspeed} km/h`;
+        document.getElementById('liveCond').textContent = w.weathercode === 0 ? '☀️ Clear' : '☁️ Cloud/Snow';
+      } catch (e) {
+        document.getElementById('liveCond').textContent = 'Unavailable';
+      }
+    }
+    fetchWeather();
 
-        function checkPersonalBests() {
-            isNewPB = false;
-            let currentSec = parseFloat(elapsedTime);
-            
-            if (pbTime === null || currentSec < parseFloat(pbTime)) {
-                pbTime = elapsedTime;
-                localStorage.setItem('parkour_pbTime', pbTime);
-                isNewPB = true;
-            }
+    // Quiz Check
+    function checkQuiz(btn, isCorrect) {
+      const res = document.getElementById('quizResult');
+      if (isCorrect) {
+        res.textContent = '✅ Ճիշտ է (Correct!)';
+        res.style.color = 'green';
+      } else {
+        res.textContent = '❌ Սխալ է, փորձեք նորից (Incorrect, try again)';
+        res.style.color = 'red';
+      }
+    }
 
-            if (pbDeaths === null || deaths < parseInt(pbDeaths)) {
-                pbDeaths = deaths;
-                localStorage.setItem('parkour_pbDeaths', pbDeaths);
-                isNewPB = true;
-            }
-        }
-
-        function restartGame() {
-            currentLevel = 0;
-            score = 0;
-            deaths = 0;
-            gameWon = false;
-            isNewPB = false;
-            levelSplits = [];
-            splitPopup = { text: '', timer: 0 };
-            startTime = Date.now();
-            elapsedTime = 0;
-            loadLevel(0);
-        }
-
-        function resetPlayer() {
-            deaths++;
-            player.x = 30;
-            player.y = 300;
-            player.vx = 0;
-            player.vy = 0;
-        }
-
-        function handleJumpPress() {
-            if (player.grounded) {
-                player.vy = player.jumpPower;
-                player.jumpsLeft = 1;
-            } else if (player.wallSlide) {
-                player.vy = player.jumpPower;
-                player.vx = player.wallDir === 1 ? -12 : 12;
-                player.jumpsLeft = 1;
-            } else if (player.jumpsLeft > 0) {
-                player.vy = player.jumpPower * 0.9;
-                player.jumpsLeft--;
-            }
-        }
-
-        function update() {
-            if (gameWon) return;
-
-            elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
-
-            if (keys[controls.left]) player.vx -= player.speed;
-            if (keys[controls.right]) player.vx += player.speed;
-
-            if (player.vx > player.maxSpeed) player.vx = player.maxSpeed;
-            if (player.vx < -player.maxSpeed) player.vx = -player.maxSpeed;
-
-            player.vx *= friction;
-            player.vy += gravity;
-
-            player.wallSlide = false;
-            player.wallDir = 0;
-
-            // Horizontal Collision
-            player.x += player.vx;
-            for (let p of activePlatforms) {
-                if (player.x < p.x + p.w && player.x + player.w > p.x &&
-                    player.y < p.y + p.h && player.y + player.h > p.y) {
-                    
-                    if (player.vx > 0) { 
-                        player.x = p.x - player.w;
-                        player.wallSlide = true;
-                        player.wallDir = 1;
-                    } else if (player.vx < 0) { 
-                        player.x = p.x + p.w;
-                        player.wallSlide = true;
-                        player.wallDir = -1;
-                    }
-                    player.vx = 0;
-                }
-            }
-
-            // Screen Limits
-            if (player.x < 0) {
-                player.x = 0;
-                player.vx = 0;
-            } else if (player.x + player.w > canvas.width) {
-                player.x = canvas.width - player.w;
-                player.vx = 0;
-            }
-
-            // Vertical Collision
-            player.y += player.vy;
-            player.grounded = false;
-            for (let p of activePlatforms) {
-                if (player.x < p.x + p.w && player.x + player.w > p.x &&
-                    player.y < p.y + p.h && player.y + player.h > p.y) {
-                    
-                    if (player.vy > 0) { 
-                        player.y = p.y - player.h;
-                        player.grounded = true;
-                        player.jumpsLeft = 2;
-                    } else if (player.vy < 0) { 
-                        player.y = p.y + p.h;
-                    }
-                    player.vy = 0;
-                }
-            }
-
-            // Wall Slide
-            if (player.wallSlide && player.vy > 0) {
-                player.vy *= 0.6; 
-                player.jumpsLeft = 1;
-            }
-
-            // Hazard Collisions
-            for (let h of activeHazards) {
-                if (player.x < h.x + h.w && player.x + player.w > h.x &&
-                    player.y < h.y + h.h && player.y + player.h > h.y) {
-                    resetPlayer();
-                }
-            }
-
-            if (player.y > canvas.height) {
-                resetPlayer();
-            }
-
-            // Coin Pickups
-            for (let c of activeCoins) {
-                if (!c.collected) {
-                    let distX = (player.x + player.w / 2) - c.x;
-                    let distY = (player.y + player.h / 2) - c.y;
-                    if (Math.hypot(distX, distY) < c.r + player.w / 2) {
-                        c.collected = true;
-                        score += 100;
-                    }
-                }
-            }
-
-            // Next Level Check
-            if (player.x < activeGoal.x + activeGoal.w && player.x + player.w > activeGoal.x &&
-                player.y < activeGoal.y + activeGoal.h && player.y + player.h > activeGoal.y) {
-                
-                let lvlTime = ((Date.now() - levelStartTime) / 1000).toFixed(1);
-                levelSplits.push(lvlTime);
-                
-                splitPopup = {
-                    text: `⚡ LEVEL ${currentLevel + 1} SPLIT: ${lvlTime}s`,
-                    timer: 110
-                };
-
-                currentLevel++;
-                loadLevel(currentLevel);
-            }
-        }
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Platforms
-            ctx.fillStyle = '#2c3e50';
-            for (let p of activePlatforms) {
-                ctx.fillRect(p.x, p.y, p.w, p.h);
-            }
-
-            // Hazards
-            ctx.fillStyle = '#e74c3c';
-            for (let h of activeHazards) {
-                ctx.fillRect(h.x, h.y, h.w, h.h);
-            }
-
-            // Coins
-            ctx.fillStyle = '#f1c40f';
-            for (let c of activeCoins) {
-                if (!c.collected) {
-                    ctx.beginPath();
-                    ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            // Goal Door
-            ctx.fillStyle = '#2ecc71';
-            ctx.fillRect(activeGoal.x, activeGoal.y, activeGoal.w, activeGoal.h);
-
-            // Player (Color changes when Power key is held)
-            ctx.fillStyle = keys[controls.power] ? '#ffcc00' : '#3498db';
-            ctx.fillRect(player.x, player.y, player.w, player.h);
-
-            // Corner Square Indicator
-            let cornerSquareSize = 20;
-            ctx.fillStyle = '#ffcc00';
-            ctx.fillRect(canvas.width - cornerSquareSize - 20, 20, cornerSquareSize, cornerSquareSize);
-
-            // Live HUD
-            ctx.fillStyle = '#222';
-            ctx.font = 'bold 16px sans-serif';
-            ctx.textAlign = 'left';
-            ctx.fillText(`Level: ${currentLevel < levels.length ? currentLevel + 1 : levels.length} / ${levels.length}`, 20, 30);
-            ctx.fillText(`Score: ${score}`, 20, 55);
-            ctx.fillText(`Deaths: ${deaths}`, 20, 80);
-            ctx.fillText(`Time: ${elapsedTime}s`, 20, 105);
-
-            // Personal Best Records Box
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(canvas.width - 230, 70, 210, 60);
-            ctx.fillStyle = '#444';
-            ctx.font = 'bold 13px sans-serif';
-            ctx.fillText(`PB Time: ${pbTime ? pbTime + 's' : '--'}`, canvas.width - 220, 90);
-            ctx.fillText(`PB Deaths: ${pbDeaths !== null ? pbDeaths : '--'}`, canvas.width - 220, 115);
-
-            // Split Time Popup
-            if (splitPopup.timer > 0) {
-                splitPopup.timer--;
-                ctx.fillStyle = 'rgba(20, 20, 20, 0.88)';
-                ctx.beginPath();
-                ctx.roundRect(canvas.width / 2 - 140, 15, 280, 42, 20);
-                ctx.fill();
-
-                ctx.fillStyle = '#00ffcc';
-                ctx.font = 'bold 16px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText(splitPopup.text, canvas.width / 2, 42);
-            }
-
-            // Victory Screen
-            if (gameWon) {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = '#2ecc71';
-                ctx.font = 'bold 32px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('ALL 5 LEVELS CLEARED!', canvas.width / 2, 60);
-
-                if (isNewPB) {
-                    ctx.fillStyle = '#f1c40f';
-                    ctx.font = 'bold 18px sans-serif';
-                    ctx.fillText('🏆 NEW PERSONAL BEST RECORD! 🏆', canvas.width / 2, 95);
-                }
-
-                ctx.font = '16px sans-serif';
-                ctx.fillStyle = '#fff';
-                ctx.fillText(`Final Score: ${score} / 1900 | Deaths: ${deaths} | Total Time: ${elapsedTime}s`, canvas.width / 2, 125);
-
-                // Level Splits Table
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-                ctx.fillRect(canvas.width / 2 - 180, 145, 360, 140);
-                ctx.fillStyle = '#00ffcc';
-                ctx.font = 'bold 15px sans-serif';
-                ctx.fillText('STAGE SPLIT BREAKDOWN', canvas.width / 2, 168);
-
-                ctx.fillStyle = '#e0e0e0';
-                ctx.font = '14px monospace';
-                for (let i = 0; i < levelSplits.length; i++) {
-                    let yPos = 195 + (i * 20);
-                    ctx.fillText(`Level ${i + 1}: ${levelSplits[i]}s`, canvas.width / 2, yPos);
-                }
-
-                ctx.fillStyle = '#00ffcc';
-                ctx.font = 'bold 16px sans-serif';
-                ctx.fillText('Press R to run again!', canvas.width / 2, 330);
-            }
-        }
-
-        function gameLoop() {
-            update();
-            draw();
-            requestAnimationFrame(gameLoop);
-        }
-
-        loadLevel(0);
-        gameLoop();
-    </script>
+    function openModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imgModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('imgModal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
