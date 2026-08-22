@@ -1,469 +1,447 @@
 <!DOCTYPE html>
-<html lang="hy">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Ownership Verification Tag -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Bavra Village & Game Portal</title>
+
+  <!-- Google Search Console Verification Tags -->
   <meta name="google-site-verification" content="XsxHx6m0rEKXIkFuPx1kfXAYUuzOw-c5oDJPiqMQ1Yg" />
-
-  <!-- SEO Meta Tags for Google Search -->
-  <title>Բավրա Գյուղ | Bavra Village, Armenia</title>
-  <meta name="description" content="Official informational page about Bavra village in Shirak region, Armenia. Population, 2150m elevation, live weather, border checkpoint, and local economy.">
-  <meta name="keywords" content="Bavra, Bavra Armenia, Bavra village, Shirak, Ashotsk, Bavra border, Բավրա, Բավրայի մաքսակետ, Շիրակ">
-  <meta name="author" content="Nshan Sumbulyan">
-  <link rel="canonical" href="https://nshsmb.github.io/bavra.html">
-
-  <!-- Alternate Language Tags -->
-  <link rel="alternate" hreflang="hy" href="https://nshsmb.github.io/bavra.html">
-  <link rel="alternate" hreflang="en" href="https://nshsmb.github.io/bavra.html">
-  <link rel="alternate" hreflang="x-default" href="https://nshsmb.github.io/bavra.html">
-
-  <!-- Social Media & Link Preview Tags -->
-  <meta property="og:title" content="Բավրա Գյուղ | Bavra Village">
-  <meta property="og:description" content="Explore Bavra village in Shirak, Armenia: live weather, altitude, facts, and photos.">
-  <meta property="og:url" content="https://nshsmb.github.io/bavra.html">
-  <meta property="og:type" content="website">
+  <meta name="google-site-verification" content="8M9y0Vgoe-TP1JpAhWdcMWux43WLA2QJqt1JGW_IBVM" />
 
   <style>
     :root {
-      --bg-color: #f4f4f9;
-      --card-bg: #ffffff;
-      --text-color: #333333;
-      --heading-color: #2c3e50;
-      --primary-color: #2980b9;
-      --subtitle-color: #7f8c8d;
-      --fact-bg: #eef7fc;
-      --card-border: #ddd;
-      --shadow: rgba(0, 0, 0, 0.1);
-      --btn-text-color: #ffffff;
+      --bg-primary: #121212;
+      --bg-card: #1e1e1e;
+      --accent-color: #00e676;
+      --text-main: #ffffff;
+      --text-sub: #b0bec5;
+      --border-color: #333333;
+      --btn-bg: #2a2a2a;
     }
 
-    [data-theme="dark"] {
-      --bg-color: #121212;
-      --card-bg: #1e1e1e;
-      --text-color: #e0e0e0;
-      --heading-color: #ecf0f1;
-      --primary-color: #f1c40f;
-      --subtitle-color: #bdc3c7;
-      --fact-bg: #2a2a1a;
-      --card-border: #444;
-      --shadow: rgba(0, 0, 0, 0.5);
-      --btn-text-color: #121212;
+    /* Light Theme Overrides */
+    body.light-theme {
+      --bg-primary: #f4f6f8;
+      --bg-card: #ffffff;
+      --accent-color: #2e7d32;
+      --text-main: #121212;
+      --text-sub: #546e7a;
+      --border-color: #e0e0e0;
+      --btn-bg: #e8e8e8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    /* Top Navigation Bar */
-    nav {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      background: var(--card-bg);
-      padding: 10px 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow);
-      margin-bottom: 20px;
-      border: 1px solid var(--card-border);
-    }
-
-    .brand-title {
-      color: var(--primary-color);
-      font-weight: bold;
-      font-size: 1em;
-    }
-
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-small {
-      background: var(--primary-color);
-      color: var(--btn-text-color);
-      border: none;
-      padding: 6px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.85em;
-      font-weight: bold;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .clock-display {
-      background: var(--card-bg);
-      color: var(--primary-color);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.85em;
-      font-weight: bold;
-      border: 1px solid var(--primary-color);
-      font-family: monospace;
+      min-height: 100vh;
+      padding: 16px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
-      text-align: center;
-      border-bottom: 2px solid var(--heading-color);
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    h1 { color: var(--heading-color); margin-bottom: 5px; }
-    .subtitle { color: var(--subtitle-color); font-style: italic; }
-
-    section {
-      background: var(--card-bg);
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px var(--shadow);
-      overflow: hidden;
-    }
-
-    .section-title {
-      color: var(--primary-color);
-      margin: 0;
-      padding: 18px 20px;
-      cursor: pointer;
+      width: 100%;
+      max-width: 800px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      user-select: none;
+      margin-bottom: 20px;
+      position: relative;
     }
 
-    .section-title::after {
-      content: "▼";
-      font-size: 0.8em;
-      transition: transform 0.3s ease;
+    .theme-toggle-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 50%;
+      cursor: pointer;
     }
 
-    section.active .section-title::after {
-      transform: rotate(180deg);
+    h1 {
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
     }
 
-    .section-content {
-      max-height: 0;
-      overflow: hidden;
-      padding: 0 20px;
-      transition: max-height 0.4s ease, padding 0.4s ease;
-    }
-
-    section.active .section-content {
-      max-height: 1200px;
-      padding: 15px 20px 20px 20px;
-      border-top: 1px solid var(--card-border);
-    }
-
-    .grid-4, .grid-3 {
+    .widget-bar {
       display: flex;
-      gap: 12px;
+      justify-content: space-around;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px;
       margin-top: 10px;
+    }
+
+    .widget-item {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+    }
+
+    .widget-item span {
+      color: var(--text-main);
+      font-weight: bold;
+    }
+
+    main {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .card {
-      flex: 1;
-      background: var(--fact-bg);
-      border-left: 4px solid var(--primary-color);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--accent-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+    }
+
+    /* Victorina Nshan Styling */
+    .quiz-option {
+      display: block;
+      width: 100%;
       padding: 12px;
-      border-radius: 4px;
-      text-align: center;
-    }
-
-    .card h3 {
-      margin: 0 0 5px 0;
-      color: var(--primary-color);
-      font-size: 1.1em;
-    }
-
-    .gallery {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    .img-card {
-      flex: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      margin: 8px 0;
+      background: var(--btn-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
       border-radius: 6px;
-      overflow: hidden;
-      text-align: center;
+      text-align: left;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .quiz-option:hover {
+      opacity: 0.9;
+    }
+
+    .quiz-analysis {
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.05);
+      border-left: 4px solid var(--accent-color);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      display: none;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    .nav-btn {
+      background: var(--accent-color);
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .img-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
 
-    .img-card p { padding: 8px; margin: 0; font-size: 0.9em; }
-
-    .map-container {
+    /* Canvas Game */
+    #game-container {
+      position: relative;
       width: 100%;
-      height: 280px;
+      background: #000;
       border-radius: 8px;
       overflow: hidden;
-      border: 1px solid var(--card-border);
-    }
-
-    .map-container iframe { width: 100%; height: 100%; border: 0; }
-
-    /* Quiz Styling */
-    .quiz-q { margin-bottom: 15px; }
-    .quiz-opt {
-      display: block;
-      width: 100%;
-      padding: 8px;
-      margin: 5px 0;
-      background: var(--fact-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-color);
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: left;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      z-index: 1000;
     }
 
-    .modal img { max-width: 90%; max-height: 80vh; border-radius: 8px; }
+    canvas {
+      background: #181824;
+      width: 100%;
+      max-width: 760px;
+      height: 360px;
+      display: block;
+    }
 
-    @media (max-width: 600px) {
-      .grid-4, .grid-3, .gallery { flex-direction: column; }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px;
+      background: #111;
+    }
+
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      background: #2a2a2a;
+      border: 2px solid var(--accent-color);
+      color: #fff;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+
+    .control-btn:active {
+      background: var(--accent-color);
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation Bar -->
-  <nav>
-    <span class="brand-title" data-arm="📍 Բավրա Տեղեկատու" data-eng="📍 Bavra Info">📍 Բավրա Տեղեկատու</span>
-    <div class="nav-controls">
-      <div class="clock-display" id="clock">00:00:00</div>
-      <button class="btn-small" id="langToggle">ENG</button>
-      <button class="btn-small" id="themeToggle">🌙</button>
-    </div>
-  </nav>
-
   <header>
-    <h1 id="siteTitle" data-arm="Բավրա Գյուղ" data-eng="Bavra Village">Բավրա Գյուղ</h1>
-    <p class="subtitle" id="siteSub" data-arm="Շիրակի մարզ, Աշոցքի համայնք" data-eng="Shirak Region, Ashotsk Community">Շիրակի մարզ, Աշոցքի համայնք</p>
+    <!-- Toggle showing Sun in Dark mode, Moon in Light mode -->
+    <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+    <h1>Bavra Portal</h1>
+    <div class="widget-bar">
+      <div class="widget-item">Time: <span id="live-clock">--:--:--</span></div>
+      <div class="widget-item">Bavra Temp: <span id="weather-temp">14°C</span></div>
+    </div>
   </header>
 
   <main>
-    <!-- Key Facts -->
-    <section class="active">
-      <h2 class="section-title" data-arm="Հիմնական Տվյալներ" data-eng="Key Facts">Հիմնական Տվյալներ</h2>
-      <div class="section-content">
-        <div class="grid-4">
-          <div class="card">
-            <h3>652</h3>
-            <p data-arm="Բնակչություն" data-eng="Population">Բնակչություն</p>
-          </div>
-          <div class="card">
-            <h3>2,150 մ</h3>
-            <p data-arm="Բարձրություն" data-eng="Elevation">Բարձրություն</p>
-          </div>
-          <div class="card">
-            <h3>1.7 կմ²</h3>
-            <p data-arm="Մակերես" data-eng="Area">Մակերես</p>
-          </div>
-          <div class="card">
-            <h3>+374 312</h3>
-            <p data-arm="Հեռ. Կոդ" data-eng="Phone Code">Հեռ. Կոդ</p>
-          </div>
-        </div>
+    <section class="card">
+      <h2>About Bavra</h2>
+      <p style="color: var(--text-sub); line-height: 1.5;">
+        Bavra is a high-altitude border village located in the Shirak Province of Armenia, known for its mountain climate, scenic landscapes, and resilient community spirit.
+      </p>
+    </section>
+
+    <!-- Victorina Nshan -->
+    <section class="card">
+      <h2>Victorina Nshan</h2>
+      <p id="quiz-question" style="font-weight: bold; margin-bottom: 10px;"></p>
+      
+      <div id="quiz-options"></div>
+
+      <div id="quiz-analysis" class="quiz-analysis"></div>
+
+      <div class="quiz-nav">
+        <button class="nav-btn" id="prev-btn" onclick="prevQuestion()">◄ Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="nextQuestion()">Next ►</button>
       </div>
     </section>
 
-    <!-- Live Weather -->
-    <section class="active">
-      <h2 class="section-title" data-arm="Ընթացիկ Եղանակ (Ուղիղ)" data-eng="Live Weather">Ընթացիկ Եղանակ (Ուղիղ)</h2>
-      <div class="section-content">
-        <div class="grid-3">
-          <div class="card">
-            <h3 id="liveTemp">-- °C</h3>
-            <p data-arm="Ջերմաստիճան" data-eng="Temperature">Ջերմաստիճան</p>
+    <!-- 2D Canvas Game -->
+    <section class="card">
+      <h2>2D Runner Game</h2>
+      <div id="game-container">
+        <canvas id="gameCanvas" width="760" height="360"></canvas>
+        <div class="controls">
+          <div style="display: flex; gap: 10px;">
+            <button class="control-btn" id="btn-left">◄</button>
+            <button class="control-btn" id="btn-right">►</button>
           </div>
-          <div class="card">
-            <h3 id="liveWind">-- կմ/ժ</h3>
-            <p data-arm="Քամի" data-eng="Wind Speed">Քամի</p>
-          </div>
-          <div class="card">
-            <h3 id="liveCond">Բեռնվում է...</h3>
-            <p data-arm="Վիճակ" data-eng="Condition">Վիճակ</p>
-          </div>
+          <button class="control-btn" id="btn-jump">▲</button>
         </div>
-      </div>
-    </section>
-
-    <!-- Agriculture & Produce Spotlight -->
-    <section>
-      <h2 class="section-title" data-arm="Գյուղատնտեսություն և Արտադրություն" data-eng="Agriculture & Produce">Գյուղատնտեսություն և Արտադրություն</h2>
-      <div class="section-content">
-        <div class="grid-3">
-          <div class="card">
-            <h3>🌾 Ցորեն և Հնդկացորեն</h3>
-            <p data-arm="Բարձրլեռնային դիմացկուն հացահատիկներ" data-eng="Cold-hardy high-altitude grains">Բարձրլեռնային դիմացկուն հացահատիկներ</p>
-          </div>
-          <div class="card">
-            <h3>🐝 Մեղվաբուծություն</h3>
-            <p data-arm="Մաքուր լեռնային ծաղկային մեղր" data-eng="Pure alpine flower honey">Մաքուր լեռնային ծաղկային մեղր</p>
-          </div>
-          <div class="card">
-            <h3>🏢 «Նոր Հատիկ»</h3>
-            <p data-arm="Տեղական ձեռնարկատիրություն" data-eng="Local agricultural enterprise">Տեղական ձեռնարկատիրություն</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Geography -->
-    <section>
-      <h2 class="section-title" data-arm="Աշխարհագրություն" data-eng="Geography">Աշխարհագրություն</h2>
-      <div class="section-content">
-        <ul>
-          <li data-arm="Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):" data-eng="Located in Shirak region, Ashotsk district (41°07′09″ N 43°48′33″ E).">Գտնվում է Շիրակի մարզի Աշոցքի տարածաշրջանում (41°07′09″ հս. լ. 43°48′33″ ավ. եր.):</li>
-          <li data-arm="Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:" data-eng="Distance from Georgian border: 2 km, from Gyumri: 50 km.">Հեռավորություն Վրաստանի սահմանից՝ 2 կմ, Գյումրիից՝ 50 կմ:</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Google Map -->
-    <section>
-      <h2 class="section-title" data-arm="Քարտեզ" data-eng="Map">Քարտեզ</h2>
-      <div class="section-content">
-        <div class="map-container">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12003.524584218324!2d43.79758248316045!3d41.11916669999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40428d02951e70c5%3A0x6bd77e38c92a9cb9!2sBavra%2C%20Armenia!5e0!3m2!1sen!2s" loading="lazy"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- Photos -->
-    <section>
-      <h2 class="section-title" data-arm="Լուսանկարներ" data-eng="Photos">Լուսանկարներ</h2>
-      <div class="section-content">
-        <div class="gallery">
-          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
-            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcTCzsvifJIQr-uezZZ8rId12Rtghzj_wfbTUmbm0kNAvPPEnAA1OW4VlbQuwZQ5Rm-7XWrEyK3a7LJJriA" alt="Սուրբ Նշան եկեղեցի">
-            <p data-arm="Սուրբ Նշան եկեղեցի" data-eng="Surb Nshan Church">Սուրբ Նշան եկեղեցի</p>
-          </div>
-          <div class="img-card" onclick="openModal(this.querySelector('img').src)">
-            <img src="https://lh3.googleusercontent.com/gps-proxy/ALd4DhFCt3P9XlXlFp-jF8A8K7l9x0V_7WjL0p7U7xX" alt="Բավրայի մաքսակետ">
-            <p data-arm="Բավրայի մաքսակետ" data-eng="Bavra Border Checkpoint">Բավրայի մաքսակետ</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mini Quiz -->
-    <section>
-      <h2 class="section-title" data-arm="Գիտելիքի Ստուգում (Վիկտորինա)" data-eng="Village Quiz">Գիտելիքի Ստուգում (Վիկտորինա)</h2>
-      <div class="section-content">
-        <div class="quiz-q">
-          <p><strong>1. Որքա՞ն է Բավրայի բարձրությունը ծովի մակերևույթից:</strong></p>
-          <button class="quiz-opt" onclick="checkQuiz(this, false)">1,800 մ</button>
-          <button class="quiz-opt" onclick="checkQuiz(this, true)">2,150 մ</button>
-          <button class="quiz-opt" onclick="checkQuiz(this, false)">2,500 մ</button>
-        </div>
-        <div id="quizResult" style="font-weight: bold; margin-top: 10px;"></div>
       </div>
     </section>
   </main>
 
-  <div id="imgModal" class="modal" onclick="closeModal()">
-    <img id="modalImg" src="" alt="View">
-  </div>
-
   <script>
-    // Accordion Toggle
-    document.querySelectorAll('.section-title').forEach(t => {
-      t.addEventListener('click', () => t.parentElement.classList.toggle('active'));
-    });
+    // Theme Switcher (Dark = Sun icon, Light = Moon icon)
+    function toggleTheme() {
+      const body = document.body;
+      const themeBtn = document.getElementById("themeBtn");
+      body.classList.toggle("light-theme");
 
-    // Time Clock (HH:MM:SS)
+      if (body.classList.contains("light-theme")) {
+        themeBtn.innerText = "🌙"; // Bright mode active -> Show Moon
+      } else {
+        themeBtn.innerText = "☀️"; // Dark mode active -> Show Sun
+      }
+    }
+
+    // Live Clock
     function updateClock() {
-      const opts = { timeZone: 'Asia/Yerevan', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      document.getElementById('clock').textContent = new Intl.DateTimeFormat('en-US', opts).format(new Date());
+      const now = new Date();
+      document.getElementById("live-clock").innerText = now.toLocaleTimeString();
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Dark/Light Theme Switcher
-    const toggleBtn = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-    toggleBtn.addEventListener('click', () => {
-      let cur = document.documentElement.getAttribute('data-theme');
-      let next = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
+    // Victorina Nshan Questions Data
+    const quizData = [
+      {
+        question: "1. In which region of Armenia is Bavra located?",
+        options: ["Syunik", "Shirak", "Lori"],
+        correct: 1,
+        analysis: "Analysis: Correct! Bavra is situated in the north-western Shirak region near the border."
+      },
+      {
+        question: "2. What climate characteristic is typical for Bavra's high elevation?",
+        options: ["Tropical Heat", "Cold Mountain Winds", "Desert Dryness"],
+        correct: 1,
+        analysis: "Analysis: Correct! Being high in Shirak's plateau, cold mountain weather and harsh winds are common."
+      },
+      {
+        question: "3. Which piece is at the core of opening setup strategies in chess?",
+        options: ["Pawn Center Control", "Early Queen Attacks", "Corner Rooks"],
+        correct: 0,
+        analysis: "Analysis: Strategic control of the central squares using Pawns forms the bedrock of chess fundamentals."
+      }
+    ];
 
-    // Language Switcher (ARM / ENG)
-    let currentLang = 'ARM';
-    const langBtn = document.getElementById('langToggle');
-    langBtn.addEventListener('click', () => {
-      currentLang = currentLang === 'ARM' ? 'ENG' : 'ARM';
-      langBtn.textContent = currentLang === 'ARM' ? 'ENG' : 'ARM';
+    let currentQ = 0;
+
+    function renderQuiz() {
+      const q = quizData[currentQ];
+      document.getElementById("quiz-question").innerText = q.question;
       
-      document.querySelectorAll('[data-arm]').forEach(el => {
-        el.textContent = currentLang === 'ARM' ? el.getAttribute('data-arm') : el.getAttribute('data-eng');
+      const optContainer = document.getElementById("quiz-options");
+      optContainer.innerHTML = "";
+
+      q.options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-option";
+        btn.innerText = opt;
+        btn.onclick = () => selectAnswer(index);
+        optContainer.appendChild(btn);
       });
+
+      document.getElementById("quiz-analysis").style.display = "none";
+      document.getElementById("prev-btn").disabled = currentQ === 0;
+      document.getElementById("next-btn").disabled = currentQ === quizData.length - 1;
+    }
+
+    function selectAnswer(index) {
+      const q = quizData[currentQ];
+      const analysisBox = document.getElementById("quiz-analysis");
+      
+      if (index === q.correct) {
+        analysisBox.style.color = "var(--accent-color)";
+        analysisBox.innerText = "✅ " + q.analysis;
+      } else {
+        analysisBox.style.color = "#ff5252";
+        analysisBox.innerText = "❌ Incorrect. Try again! (" + q.analysis + ")";
+      }
+      analysisBox.style.display = "block";
+    }
+
+    function nextQuestion() {
+      if (currentQ < quizData.length - 1) {
+        currentQ++;
+        renderQuiz();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQ > 0) {
+        currentQ--;
+        renderQuiz();
+      }
+    }
+
+    renderQuiz();
+
+    // Canvas 2D Game Logic
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let player = { x: 50, y: 280, width: 30, height: 40, dx: 0, dy: 0, speed: 4, gravity: 0.5, jumpPower: -10, grounded: false };
+    let keys = { left: false, right: false };
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = true;
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = true;
+      if ((e.key === "ArrowUp" || e.key === "w" || e.key === " ") && player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
+      }
     });
 
-    // Fetch Real-time Weather (Open-Meteo API)
-    async function fetchWeather() {
-      try {
-        const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.119&longitude=43.809&current_weather=true');
-        const data = await res.json();
-        const w = data.current_weather;
-        document.getElementById('liveTemp').textContent = `${w.temperature} °C`;
-        document.getElementById('liveWind').textContent = `${w.windspeed} km/h`;
-        document.getElementById('liveCond').textContent = w.weathercode === 0 ? '☀️ Clear' : '☁️ Cloud/Snow';
-      } catch (e) {
-        document.getElementById('liveCond').textContent = 'Unavailable';
-      }
-    }
-    fetchWeather();
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowRight" || e.key === "d") keys.right = false;
+      if (e.key === "ArrowLeft" || e.key === "a") keys.left = false;
+    });
 
-    // Quiz Check
-    function checkQuiz(btn, isCorrect) {
-      const res = document.getElementById('quizResult');
-      if (isCorrect) {
-        res.textContent = '✅ Ճիշտ է (Correct!)';
-        res.style.color = 'green';
-      } else {
-        res.textContent = '❌ Սխալ է, փորձեք նորից (Incorrect, try again)';
-        res.style.color = 'red';
+    const setupTouch = (id, startFn, endFn) => {
+      const btn = document.getElementById(id);
+      btn.addEventListener("touchstart", (e) => { e.preventDefault(); startFn(); });
+      btn.addEventListener("touchend", (e) => { e.preventDefault(); endFn(); });
+      btn.addEventListener("mousedown", startFn);
+      btn.addEventListener("mouseup", endFn);
+    };
+
+    setupTouch("btn-left", () => keys.left = true, () => keys.left = false);
+    setupTouch("btn-right", () => keys.right = true, () => keys.right = false);
+    setupTouch("btn-jump", () => {
+      if (player.grounded) {
+        player.dy = player.jumpPower;
+        player.grounded = false;
       }
+    }, () => {});
+
+    function update() {
+      if (keys.right) player.dx = player.speed;
+      else if (keys.left) player.dx = -player.speed;
+      else player.dx = 0;
+
+      player.dy += player.gravity;
+      player.x += player.dx;
+      player.y += player.dy;
+
+      if (player.y + player.height >= 320) {
+        player.y = 320 - player.height;
+        player.dy = 0;
+        player.grounded = true;
+      }
+
+      if (player.x < 0) player.x = 0;
+      if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
     }
 
-    function openModal(src) {
-      document.getElementById('modalImg').src = src;
-      document.getElementById('imgModal').style.display = 'flex';
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#2e7d32";
+      ctx.fillRect(0, 320, canvas.width, 40);
+      ctx.fillStyle = "#00e676";
+      ctx.fillRect(player.x, player.y, player.width, player.height);
     }
-    function closeModal() {
-      document.getElementById('imgModal').style.display = 'none';
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
     }
+
+    loop();
   </script>
 </body>
 </html>
