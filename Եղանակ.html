@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Բավրայի Եղանակը</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --card-bg: #f4f4f6;
+            --card-border: #e0e0e0;
+            --sub-box-bg: #e8e8ed;
+            --accent-color: #1a73e8;
+            --hover-bg: #dedee4;
+            --active-border: #1a73e8;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --card-bg: #121212;
+            --card-border: #222222;
+            --sub-box-bg: #1e1e1e;
+            --accent-color: #ffca28;
+            --hover-bg: #2a2a2a;
+            --active-border: #ffca28;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        .clock-container {
+            text-align: right;
+        }
+
+        .clock {
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .theme-toggle {
+            background: var(--sub-box-bg);
+            color: var(--text-color);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .current-weather {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .temp-main {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background-color: var(--sub-box-bg);
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-box span {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .stat-box strong {
+            font-size: 1.1rem;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .forecast-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .forecast-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .forecast-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--sub-box-bg);
+            padding: 14px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .forecast-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .forecast-item.selected {
+            border-color: var(--active-border);
+        }
+
+        .forecast-item .date {
+            width: 220px;
+            font-weight: bold;
+        }
+
+        .forecast-item .temp {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Custom Scrollbar */
+        .forecast-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .forecast-list::-webkit-scrollbar-thumb {
+            background: var(--card-border);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+<div class="container">
+    <header>
+        <div>
+            <h1>📍 Բավրա, Շիրակ</h1>
+            <p>Եղանակի Տեսություն</p>
+        </div>
+        <div class="clock-container">
+            <div class="clock" id="live-clock">00:00:00</div>
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙 Մութ</button>
+        </div>
+    </header>
+
+    <!-- Detailed View Card -->
+    <div class="card">
+        <div class="current-weather">
+            <div>
+                <h2 id="detail-date">Այսօր</h2>
+                <p id="detail-condition">Մասամբ արևոտ</p>
+            </div>
+            <div class="temp-main" id="detail-temp">24°C</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span>Ցածր Ջերմաստիճան</span>
+                <strong id="stat-low">14°C</strong>
+            </div>
+            <div class="stat-box">
+                <span>Խոնավություն</span>
+                <strong id="stat-humidity">53%</strong>
+            </div>
+            <div class="stat-box">
+                <span>Քամի</span>
+                <strong id="stat-wind">3 mph (Հս-Արլ)</strong>
+            </div>
+            <div class="stat-box">
+                <span>ՈւՎ Ինդեքս</span>
+                <strong id="stat-uv">4</strong>
+            </div>
+            <div class="stat-box">
+                <span>Տեղումների Շանս</span>
+                <strong id="stat-precip">4%</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- 30-Day Forecast List -->
+    <div class="card">
+        <h3 class="forecast-title">30 Օրվա Կանխատեսում (Սեղմեք օրվա վրա)</h3>
+        <div class="forecast-list" id="forecast-container">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Live Clock
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById('live-clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Theme Toggle
+    function toggleTheme() {
+        const body = document.body;
+        const btn = document.getElementById('theme-btn');
+        if (body.getAttribute('data-theme') === 'light') {
+            body.setAttribute('data-theme', 'dark');
+            btn.textContent = '☀️ Լուսավոր';
+        } else {
+            body.setAttribute('data-theme', 'light');
+            btn.textContent = '🌙 Մութ';
+        }
+    }
+
+    // Days & Months Armenian Names
+    const armDays = ["Կիրակի", "Երկուշաբթի", "Երեքշաբթի", "Չորեքշաբթի", "Հինգշաբթի", "Ուրբաթ", "Շաբաթ"];
+    const armMonths = ["Հունվ", "Փետր", "Մարտ", "Ապր", "Մայ", "Հուն", "Հուլ", "Օգս", "Սեպ", "Հոկ", "Նոյ", "Դեկ"];
+    const conditions = ["Արևոտ", "Մասամբ արևոտ", "Ամպամած", "Թույլ անձրև", "Կայծակնային ամպրոպ", "Անձրև"];
+
+    // Generate 30 Days Data
+    function generate30DaysData() {
+        const data = [];
+        const today = new Date(); // Dynamic start date
+
+        for (let i = 0; i < 30; i++) {
+            const dateObj = new Date(today);
+            dateObj.setDate(today.getDate() + i);
+
+            const dayName = armDays[dateObj.getDay()];
+            const monthName = armMonths[dateObj.getMonth()];
+            const dayNum = dateObj.getDate();
+
+            let label = `${dayName}, ${monthName} ${dayNum}`;
+            if (i === 0) label = `Այսօր (${label})`;
+            if (i === 1) label = `Վաղը (${label})`;
+
+            const high = Math.round(24 - (i * 0.3) + Math.sin(i) * 2);
+            const low = Math.round(14 - (i * 0.3) + Math.cos(i) * 2);
+            const condition = conditions[i % conditions.length];
+            const humidity = 40 + (i * 2) % 45;
+            const wind = 2 + (i % 8);
+            const uv = Math.max(1, 7 - Math.floor(i / 5));
+            const precip = (i * 7) % 80;
+
+            data.push({
+                id: i,
+                dateLabel: label,
+                high: `${high}°C`,
+                low: `${low}°C`,
+                condition: condition,
+                humidity: `${humidity}%`,
+                wind: `${wind} mph`,
+                uv: uv,
+                precip: `${precip}%`
+            });
+        }
+        return data;
+    }
+
+    const forecastData = generate30DaysData();
+    let selectedId = 0;
+
+    function selectDay(id) {
+        selectedId = id;
+        const item = forecastData.find(d => d.id === id);
+
+        // Update top stats panel
+        document.getElementById('detail-date').textContent = item.dateLabel;
+        document.getElementById('detail-condition').textContent = item.condition;
+        document.getElementById('detail-temp').textContent = item.high;
+        document.getElementById('stat-low').textContent = item.low;
+        document.getElementById('stat-humidity').textContent = item.humidity;
+        document.getElementById('stat-wind').textContent = item.wind;
+        document.getElementById('stat-uv').textContent = item.uv;
+        document.getElementById('stat-precip').textContent = item.precip;
+
+        renderForecast();
+    }
+
+    function renderForecast() {
+        const container = document.getElementById('forecast-container');
+        container.innerHTML = '';
+
+        forecastData.forEach(item => {
+            const row = document.createElement('div');
+            row.className = `forecast-item ${item.id === selectedId ? 'selected' : ''}`;
+            row.onclick = () => selectDay(item.id);
+
+            row.innerHTML = `
+                <div class="date">${item.dateLabel}</div>
+                <div>${item.condition}</div>
+                <div>💧 ${item.precip}</div>
+                <div class="temp">${item.high} / ${item.low}</div>
+            `;
+            container.appendChild(row);
+        });
+    }
+
+    // Initialize
+    selectDay(0);
+</script>
+
+</body>
+</html>
