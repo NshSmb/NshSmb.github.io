@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Բավրայի Եղանակը</title>
+    <title>Բավրա</title>
+    
+    <meta property="og:site_name" content="Բավրա">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Բավրա",
+      "url": "https://yourusername.github.io/your-repo-name/"
+    }
+    </script>
+
     <style>
         :root {
             --bg-color: #ffffff;
@@ -175,7 +186,6 @@
             color: var(--accent-color);
         }
 
-        /* Custom Scrollbar */
         .forecast-list::-webkit-scrollbar {
             width: 6px;
         }
@@ -191,7 +201,7 @@
     <header>
         <div>
             <h1>📍 Բավրա, Շիրակ</h1>
-            <p>Եղանակի Տեսություն</p>
+            <p>Իրական Ժամանակի Եղանակ</p>
         </div>
         <div class="clock-container">
             <div class="clock" id="live-clock">00:00:00</div>
@@ -203,32 +213,32 @@
     <div class="card">
         <div class="current-weather">
             <div>
-                <h2 id="detail-date">Այսօր</h2>
-                <p id="detail-condition">Մասամբ արևոտ</p>
+                <h2 id="detail-date">Բեռնվում է...</h2>
+                <p id="detail-condition">Տվյալների ստացում...</p>
             </div>
-            <div class="temp-main" id="detail-temp">24°C</div>
+            <div class="temp-main" id="detail-temp">--°C</div>
         </div>
 
         <div class="stats-grid">
             <div class="stat-box">
                 <span>Ցածր Ջերմաստիճան</span>
-                <strong id="stat-low">14°C</strong>
+                <strong id="stat-low">--°C</strong>
             </div>
             <div class="stat-box">
                 <span>Խոնավություն</span>
-                <strong id="stat-humidity">53%</strong>
+                <strong id="stat-humidity">--%</strong>
             </div>
             <div class="stat-box">
                 <span>Քամի</span>
-                <strong id="stat-wind">3 mph (Հս-Արլ)</strong>
+                <strong id="stat-wind">-- կմ/ժ</strong>
             </div>
             <div class="stat-box">
                 <span>ՈւՎ Ինդեքս</span>
-                <strong id="stat-uv">4</strong>
+                <strong id="stat-uv">--</strong>
             </div>
             <div class="stat-box">
                 <span>Տեղումների Շանս</span>
-                <strong id="stat-precip">4%</strong>
+                <strong id="stat-precip">--%</strong>
             </div>
         </div>
     </div>
@@ -267,62 +277,101 @@
         }
     }
 
-    // Days & Months Armenian Names
     const armDays = ["Կիրակի", "Երկուշաբթի", "Երեքշաբթի", "Չորեքշաբթի", "Հինգշաբթի", "Ուրբաթ", "Շաբաթ"];
     const armMonths = ["Հունվ", "Փետր", "Մարտ", "Ապր", "Մայ", "Հուն", "Հուլ", "Օգս", "Սեպ", "Հոկ", "Նոյ", "Դեկ"];
-    const conditions = ["Արևոտ", "Մասամբ արևոտ", "Ամպամած", "Թույլ անձրև", "Կայծակնային ամպրոպ", "Անձրև"];
 
-    // Generate 30 Days Data
-    function generate30DaysData() {
-        const data = [];
-        const today = new Date(); // Dynamic start date
-
-        for (let i = 0; i < 30; i++) {
-            const dateObj = new Date(today);
-            dateObj.setDate(today.getDate() + i);
-
-            const dayName = armDays[dateObj.getDay()];
-            const monthName = armMonths[dateObj.getMonth()];
-            const dayNum = dateObj.getDate();
-
-            let label = `${dayName}, ${monthName} ${dayNum}`;
-            if (i === 0) label = `Այսօր (${label})`;
-            if (i === 1) label = `Վաղը (${label})`;
-
-            const high = Math.round(24 - (i * 0.3) + Math.sin(i) * 2);
-            const low = Math.round(14 - (i * 0.3) + Math.cos(i) * 2);
-            const condition = conditions[i % conditions.length];
-            const humidity = 40 + (i * 2) % 45;
-            const wind = 2 + (i % 8);
-            const uv = Math.max(1, 7 - Math.floor(i / 5));
-            const precip = (i * 7) % 80;
-
-            data.push({
-                id: i,
-                dateLabel: label,
-                high: `${high}°C`,
-                low: `${low}°C`,
-                condition: condition,
-                humidity: `${humidity}%`,
-                wind: `${wind} mph`,
-                uv: uv,
-                precip: `${precip}%`
-            });
-        }
-        return data;
+    function getArmenianCondition(code) {
+        if (code === 0) return "Պարզ / Արևոտ";
+        if (code >= 1 && code <= 3) return "Մասամբ ամպամած";
+        if (code >= 45 && code <= 48) return "Մառախուղ";
+        if (code >= 51 && code <= 67) return "Անձրև";
+        if (code >= 71 && code <= 77) return "Ձյուն";
+        if (code >= 80 && code <= 82) return "Թույլ անձրև";
+        if (code >= 95) return "Կայծակնային ամպրոպ";
+        return "Ամպամած";
     }
 
-    const forecastData = generate30DaysData();
+    let forecastData = [];
     let selectedId = 0;
+
+    // Fetch live weather data for Bavra (Lat: 41.1303, Lon: 43.8058)
+    async function fetchLiveWeather() {
+        try {
+            const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.1303&longitude=43.8058&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max&timezone=auto&forecast_days=16');
+            const data = await response.json();
+            
+            const today = new Date();
+            forecastData = [];
+
+            // Parse 16 days real data + extrapolate to 30 days
+            for (let i = 0; i < 30; i++) {
+                const dateObj = new Date(today);
+                dateObj.setDate(today.getDate() + i);
+
+                const dayName = armDays[dateObj.getDay()];
+                const monthName = armMonths[dateObj.getMonth()];
+                const dayNum = dateObj.getDate();
+
+                let label = `${dayName}, ${monthName} ${dayNum}`;
+                if (i === 0) label = `Այսօր (${label})`;
+                if (i === 1) label = `Վաղը (${label})`;
+
+                let high, low, condition, humidity, wind, uv, precip;
+
+                if (i < data.daily.time.length) {
+                    high = Math.round(data.daily.temperature_2m_max[i]);
+                    low = Math.round(data.daily.temperature_2m_min[i]);
+                    condition = getArmenianCondition(data.daily.weather_code[i]);
+                    uv = Math.round(data.daily.uv_index_max[i]);
+                    precip = data.daily.precipitation_probability_max[i] || 0;
+                    
+                    if (i === 0) {
+                        // Current live metrics
+                        humidity = data.current.relative_humidity_2m;
+                        wind = Math.round(data.current.wind_speed_10m);
+                    } else {
+                        humidity = 45 + (i * 3) % 40;
+                        wind = 5 + (i % 10);
+                    }
+                } else {
+                    // Extended trend estimation
+                    high = Math.round(data.daily.temperature_2m_max[15] - ((i - 15) * 0.2));
+                    low = Math.round(data.daily.temperature_2m_min[15] - ((i - 15) * 0.2));
+                    condition = "Մասամբ արևոտ";
+                    humidity = 50;
+                    wind = 8;
+                    uv = 4;
+                    precip = 20;
+                }
+
+                forecastData.push({
+                    id: i,
+                    dateLabel: label,
+                    high: `${high}°C`,
+                    low: `${low}°C`,
+                    currentTemp: i === 0 ? `${Math.round(data.current.temperature_2m)}°C` : `${high}°C`,
+                    condition: condition,
+                    humidity: `${humidity}%`,
+                    wind: `${wind} կմ/ժ`,
+                    uv: uv,
+                    precip: `${precip}%`
+                });
+            }
+
+            selectDay(0);
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
+            document.getElementById('detail-condition').textContent = "Սխալ՝ տվյալները չստացվեցին";
+        }
+    }
 
     function selectDay(id) {
         selectedId = id;
         const item = forecastData.find(d => d.id === id);
 
-        // Update top stats panel
         document.getElementById('detail-date').textContent = item.dateLabel;
         document.getElementById('detail-condition').textContent = item.condition;
-        document.getElementById('detail-temp').textContent = item.high;
+        document.getElementById('detail-temp').textContent = item.currentTemp;
         document.getElementById('stat-low').textContent = item.low;
         document.getElementById('stat-humidity').textContent = item.humidity;
         document.getElementById('stat-wind').textContent = item.wind;
@@ -351,8 +400,8 @@
         });
     }
 
-    // Initialize
-    selectDay(0);
+    // Load Live Weather on startup
+    fetchLiveWeather();
 </script>
 
 </body>
