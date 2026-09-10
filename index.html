@@ -18,6 +18,24 @@
       "url": "https://nshsmb.github.io/"
     }
     </script>
+
+    <!-- Embedded XML Data Block -->
+    <script id="village-xml-data" type="text/xml">
+    <village id="bavra">
+        <location region="Shirak" municipality="Ashotsk" elevation="2150m" country="Armenia" />
+        <demographics population="652" />
+        <church name="Surp Nshan">
+            <founder>Koryun Sumbulyan</founder>
+            <builder>Lev Sumbulyan</builder>
+        </church>
+        <agriculture>
+            <item>Wheat</item>
+            <item>Buckwheat</item>
+            <item>Honey</item>
+        </agriculture>
+    </village>
+    </script>
+
 <style>
 :root{
   --bg:#f5f7fa;
@@ -971,6 +989,23 @@ alt="">
 
 
 <script>
+
+/* =========================
+   XML PARSER HELPER
+========================= */
+
+function parseEmbeddedXML() {
+  const xmlString = document.getElementById("village-xml-data").textContent;
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  
+  const location = xmlDoc.getElementsByTagName("location")[0];
+  if(location) {
+    console.log("Parsed XML Data - Elevation:", location.getAttribute("elevation"));
+  }
+}
+
+window.addEventListener("DOMContentLoaded", parseEmbeddedXML);
 
 /* =========================
    GOOGLE TRANSLATE
